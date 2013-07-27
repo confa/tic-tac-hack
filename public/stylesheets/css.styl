@@ -1,0 +1,49 @@
+@import 'nib'
+
+width = 500px
+height = 500px
+
+#game-container
+	width 591px
+	height 600px
+
+.game-cell
+	width ((width/3)/3.12)
+	height ((height/3.1)/3)
+	border solid 1px #000
+	display inline-block
+	margin 3px
+
+.game-field
+	width 185px
+	height 193px
+	display inline-block
+	padding 1px
+	margin-top 15px
+	margin-right 10px
+
+	&.current-cell
+		box-shadow  0 0 15px #35E726
+
+.zero
+	border-radius 50px
+	border 4px solid #333
+	width 36px
+	height 36px
+	margin 5px
+
+.cross 
+	width 48px
+	height 4px
+	background #333
+	margin 24px 0 0 4px
+	transform rotate(-45deg)
+	&:after
+		content ''
+		width 48px
+		height 4px
+		background #333
+		position absolute
+		top 0px
+		left 0px
+		transform rotate(90deg)

@@ -1,0 +1,7 @@
+#game-container{width:591px;height:600px}
+.game-cell{width:53.418803418803414px;height:53.76344086021505px;border:solid 1px #000;display:inline-block;margin:3px}
+.game-field{width:185px;height:193px;display:inline-block;padding:1px;margin-top:15px;margin-right:10px;}
+.game-field.current-cell{-webkit-box-shadow:0 0 15px #35e726;box-shadow:0 0 15px #35e726}
+.zero{-webkit-border-radius:50px;border-radius:50px;border:4px solid #333;width:36px;height:36px;margin:5px}
+.cross{width:48px;height:4px;background:#333;margin:24px 0 0 4px;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-o-transform:rotate(-45deg);-ms-transform:rotate(-45deg);transform:rotate(-45deg);}
+.cross:after{content:'';width:48px;height:4px;background:#333;position:absolute;top:0;left:0;-webkit-transform:rotate(90deg);-moz-transform:rotate(90deg);-o-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg)}
