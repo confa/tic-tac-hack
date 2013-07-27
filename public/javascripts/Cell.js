@@ -1,4 +1,3 @@
-
 var app = app || {};
 
 (function() {
@@ -35,6 +34,10 @@ var app = app || {};
 
 		this.getNumber = function () {
 			return _number;
+		};
+
+		this.getState = function() {
+			return _state;
 		};
 	};
 
