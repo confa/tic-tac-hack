@@ -1,12 +1,11 @@
-// var app = app || {};
+define(function(require) {
+	'use strict';
 
-// (function() {
-// 	'use strict';
-// 	app.CellStates =function () {
-// 		return {
-// 				Empty: 0,
-// 				Cross: 1,
-// 				Zero: 2
-// 			};
-// 	};
-// }());
+	return {
+		CellStates :{
+			Empty: 0,
+			Cross: 1,
+			Zero: 2
+		}
+	};
+});

@@ -1,17 +1,16 @@
-var app = app || {};
-
-(function(){
+define(function(require) {
 	'use strict';
+
 	var socket;
 
-	app.SocketHandler = function(){
-		socket = io.connect('http://localhost');
-		socket.on('turn', function (data) {
-			console.log(data);
-		});
-	};
+	function SocketHandler() {
+		// socket = io.connect('http://localhost');
+		// socket.on('turn', function (data) {
+		// 	console.log(data);
+		// });
+	}
 
-	app.SocketHandler.prototype = {
+	SocketHandler.prototype = {
 		subscribe: function(matchId){
 				var self = this;
 				if (matchId)
@@ -42,4 +41,6 @@ var app = app || {};
 			socket.emit('turn', {asd: 'asd'});
 		}
 	};
-}());
+
+	return SocketHandler;
+});
