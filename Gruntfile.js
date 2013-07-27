@@ -1,0 +1,74 @@
+module.exports = function (grunt) {
+	grunt.initConfig({
+		pkg: grunt.file.readJSON('package.json'),
+		javascripts: ['public/javascripts/*.js', 'public/javascripts/**/*.js', '!public/javascripts/libs/*.js'],
+		uglify: {
+			build: {
+				src: '<%= javascripts %>',
+				dest: 'public/publish/main.js'
+			}
+		},
+		concat: {
+			dist: {
+				src: ['<%= javascripts %>'],
+				dest: 'public/publish/main.js'				
+			}
+		},
+		jshint: {
+			all: ['Gruntfile.js', '<%= javascripts %>'],
+			options: {
+				sub: true,
+				smarttabs: true,
+				ignores: ['public/javascripts/libs/jquery-1.10.0.js', 'public/javascripts/libs/jquery-1.10.0.min.js']
+			}
+		},
+		watch: {
+			scripts: {
+				files: ['<%= javascripts %>'],
+				tasks: ['javascripts']
+			},
+			jade: {
+				files: ['public/index.jade'],
+				tasks: ['jade']
+			},
+			styles: {
+				files: ['public/stylesheets/*.styl'],
+				tasks: ['stylus']
+			}
+		},
+		jade: {
+			compile: {
+				options: {
+					data: {
+						debug: false
+					}
+				},
+				files: {
+					'public/index.html': 'public/index.jade'
+				}
+			}
+		},
+		stylus: {
+			compile: {
+				options: {
+					'include css': true,
+					'paths': ['public/stylesheets/styl'],
+					'compress': true
+				},
+				files: {
+					'public/publish/css.css': ['public/stylesheets/*.styl']
+				}
+			}
+		},
+	});
+
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-jade');
+	grunt.loadNpmTasks('grunt-contrib-stylus');
+
+	grunt.registerTask('default', ['jshint', 'uglify', 'concat', 'jade', 'stylus']);
+	grunt.registerTask('javascripts', ['jshint', 'uglify', 'concat']);
+};

@@ -3,6 +3,8 @@ var app = app || {};
 (function() {
 	'use strict';
 	app.Game = function (options) {
+		this.socketHandler = new app.SocketHandler();
+
 		this.globalField = [];	
 		this.availableField = undefined;
 		var self = this;
