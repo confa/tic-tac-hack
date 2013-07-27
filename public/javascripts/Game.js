@@ -10,7 +10,7 @@ var app = app || {};
 		var gameCells = $(".game-cell");
 		this.currentPlayer = app.CellStates().Cross;
 
-		for (var i = 9; i >= 0; i--) {
+		for (var i = 0; i <= 8; i++) {
 			this.globalField.push(new app.Field(i));
 		}
 
@@ -23,9 +23,12 @@ var app = app || {};
 		});
 
 		gameCells.on('click', function (item) {
-			// var field = $(item.target).data('field');
+			var field = $(item.target).data('field');
 			var cell = $(item.target).data('cell');
-			// console.log('field: ' + field + '; cell: ' + cell);
+			//console.log('field: ' + field + '; cell: ' + cell);
+
+			self.globalField[field].toggleStateByNumber(cell, self.currentPlayer);
+			self.globalField[field].determineWinner();
 
 			var className = self.currentPlayer === app.CellStates().Cross ? 'cross'	: 'zero';
 			
@@ -39,7 +42,7 @@ var app = app || {};
 				self.currentPlayer = app.CellStates().Cross;
 			}
 
-			this.availableField = cell;
+			self.availableField = cell;
 
 			$(".game-field").removeClass('current-cell');
 			$(".game-field-" + cell).addClass('current-cell');
