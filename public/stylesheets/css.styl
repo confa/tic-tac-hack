@@ -13,6 +13,8 @@ height = 500px
 	border solid 1px #000
 	display inline-block
 	margin 3px
+	&.disabled
+		background rgba(0,0,0,0.2)
 
 .game-field
 	width 185px
@@ -22,27 +24,53 @@ height = 500px
 	margin-top 15px
 	margin-right 10px
 
-	&.current-cell
+	&.current-field
 		box-shadow  0 0 15px #35E726
 
-.zero
+
+.zero-field
+	position absolute
+	border-radius 98px
+	border 10px solid #f44
+	width 156px
+	height 156px
+	margin 8px 0px 0px 4px
+
+.cross-field
+	position absolute
+	width 219px
+	height 14px
+	background #0A00FF
+	margin 95px 0 0 -17px
+	transform rotate(-45deg)
+	&:after
+		content ''
+		width 219px
+		height 14px
+		background #0A00FF
+		position absolute
+		top 0px
+		left 0px
+		transform rotate(90deg)	
+
+.zero-cell
 	border-radius 50px
-	border 4px solid #333
+	border 4px solid #f44
 	width 36px
 	height 36px
 	margin 5px
 
-.cross 
+.cross-cell
 	width 48px
 	height 4px
-	background #333
+	background #0A00FF
 	margin 24px 0 0 4px
 	transform rotate(-45deg)
 	&:after
 		content ''
 		width 48px
 		height 4px
-		background #333
+		background #0A00FF
 		position absolute
 		top 0px
 		left 0px

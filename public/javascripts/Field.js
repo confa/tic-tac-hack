@@ -47,10 +47,25 @@ define(function(require) {
 
 		determineWinner: function() {
 			
-			this.checkHorizontals();
-			this.checkVerticals();
-			this.checkLeftDiagonal();
-			this.checkRightDiagonal();
+			var leftDiagonal = this.checkLeftDiagonal();
+
+			if(leftDiagonal)
+				return leftDiagonal;
+
+			var rightDiagonal = this.checkRightDiagonal();
+
+			if(rightDiagonal)
+				return rightDiagonal;
+
+			var horizontals = this.checkHorizontals();
+
+			if(horizontals)
+				return horizontals;
+
+			var vertivals = this.checkVerticals();
+
+			if(vertivals)
+				return vertivals;
 		},
 
 		checkHorizontals: function () {
@@ -68,7 +83,7 @@ define(function(require) {
 				}
 
 				if(seria === true) { 
-					console.log('Horizontal: line from ' + i + ' to ' + (i + this.dimensions) + ' winner ' + currentState);
+					//console.log('Horizontal: line from ' + i + ' to ' + (i + this.dimensions) + ' winner ' + currentState);
 					return {from: i, to: i+this.dimensions, winner: currentState};
 				} else {
 					seria = true;
@@ -92,7 +107,7 @@ define(function(require) {
 				}
 
 				if(seria === true) { 
-					console.log('Vertical: line from ' + i + ' to ' + (i + this.dimensions) + ' winner ' + currentState);
+					//console.log('Vertical: line from ' + i + ' to ' + (i + this.dimensions) + ' winner ' + currentState);
 					return {from: i, to: i+this.dimensions, winner: currentState};
 				} else {
 					seria = true;
@@ -115,7 +130,7 @@ define(function(require) {
 			}
 
 			if(seria === true) { 
-				console.log('Left diagonal: line from 0 to 8' + ' winner ' + currentState);
+				//console.log('Left diagonal: line from 0 to 8' + ' winner ' + currentState);
 				return {from: 0, to: 8, winner: currentState};
 			} else {
 				seria = true;
@@ -136,7 +151,7 @@ define(function(require) {
 			}
 
 			if(seria === true) { 
-				console.log('Right diagonal: line from 2 to 6' + ' winner ' + currentState);
+				//console.log('Right diagonal: line from 2 to 6' + ' winner ' + currentState);
 				return {from: 0, to: 8, winner: currentState};
 			} else {
 				seria = true;
