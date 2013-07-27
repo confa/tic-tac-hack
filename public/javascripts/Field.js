@@ -1,9 +1,9 @@
-var app = app || {};
-
-(function() {
+define(function(require) {
 	'use strict';
 
-	app.Field = function (number) {
+	var Cell = require('./Cell');
+
+	function Field (number) {
 		var _number;
 
 		this.cellsArray = [];
@@ -15,15 +15,15 @@ var app = app || {};
 		}
 
 		for (var i = 0; i <= 8; i++) {
-			this.cellsArray.push(new app.Cell(i));
+			this.cellsArray.push(new Cell(i));
 		}
 
 		this.getNumber = function () {
 			return _number;
 		};
-	};
+	}
 
-	app.Field.prototype = {
+	Field.prototype = {
 
 		getCellByNumber: function(number) {
 
@@ -144,4 +144,5 @@ var app = app || {};
 		}
 	};
 
-}());
+	return Field;
+});

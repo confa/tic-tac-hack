@@ -1,22 +1,7 @@
-var app = app || {};
-
-(function() {
-	'use strict';
-	app.CellStates =function () {
-		return {
-				Empty: 0,
-				Cross: 1,
-				Zero: 2
-			};
-	};
-}());
-
-var app = app || {};
-
-(function() {
+define(function(require) {
 	'use strict';
 
-	app.Cell = function (number) {
+	function Cell (number) {
 
 		var _state = 0,
 			_number = 0,
@@ -41,4 +26,5 @@ var app = app || {};
 		};
 	};
 
-}());
+	return Cell;
+});

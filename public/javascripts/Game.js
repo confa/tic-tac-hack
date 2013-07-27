@@ -1,18 +1,22 @@
-var app = app || {};
-
-(function() {
+define(function(require) {
 	'use strict';
-	app.Game = function (options) {
-		this.socketHandler = new app.SocketHandler();
+
+	var SocketHandler = require('./SocketHandler'),
+		enums = require('./shared/enums'),
+		Field = require('./Field'),
+		$ = require('jquery');
+
+	function Game (options) {
+		this.socketHandler = new SocketHandler();
 		this.globalField = [];	
 		this.availableField = undefined;
 		var self = this;
 
 		var gameCells = $(".game-cell");
-		this.currentPlayer = app.CellStates().Cross;
+		this.currentPlayer = enums.CellStates.Cross;
 
 		for (var i = 0; i <= 8; i++) {
-			this.globalField.push(new app.Field(i));
+			this.globalField.push(new Field(i));
 		}
 
 		gameCells.on('mouseover', function (item) {
@@ -31,24 +35,24 @@ var app = app || {};
 			self.globalField[field].toggleStateByNumber(cell, self.currentPlayer);
 			self.globalField[field].determineWinner();
 
-			var className = self.currentPlayer === app.CellStates().Cross ? 'cross'	: 'zero';
+			var className = self.currentPlayer === enums.CellStates.Cross ? 'cross'	: 'zero';
 			
 			$(item.target)
 					.append('<div class=\"'+className+'\"></div>')
 					.off('click mouseout mouseover');
 
-			if(self.currentPlayer === app.CellStates().Cross) {
-				self.currentPlayer = app.CellStates().Zero;
+			if(self.currentPlayer === enums.CellStates.Cross) {
+				self.currentPlayer = enums.CellStates.Zero;
 			} else {
-				self.currentPlayer = app.CellStates().Cross;
+				self.currentPlayer = enums.CellStates.Cross;
 			}
 			self.availableField = cell;
 
 			$(".game-field").removeClass('current-cell');
 			$(".game-field-" + cell).addClass('current-cell');
 		});
-	};
+	}
 
-}());
-
-var Game = new app.Game();
+	return new Game();
+});
+	
