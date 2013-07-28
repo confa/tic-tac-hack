@@ -3,13 +3,18 @@
 width = 500px
 height = 500px
 
+body, html
+	width 100%
+	height 100%
+
 #game-container
-	width 591px
-	height 600px
+	width 30%
+	height 80%
+	margin auto
 
 .game-cell
-	width ((width/3)/3.12)
-	height ((height/3.1)/3)
+	width @css{calc(33% - 10px)}
+	height @css{calc(33% - 10px)}
 	border solid 1px #000
 	display inline-block
 	margin 3px
@@ -17,8 +22,8 @@ height = 500px
 		background rgba(0,0,0,0.2)
 
 .game-field
-	width 185px
-	height 193px
+	width @css{calc(33% - 12px)}
+	height @css{calc(33% - 17px)}
 	display inline-block
 	padding 1px
 	margin-top 15px

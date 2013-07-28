@@ -36,14 +36,14 @@ define(function(require) {
 
 			//console.log('field: ' + field + '; cell: ' + cell);
 			
-			makeStep_(item.target, field, cell);
+			makeTurn_(item.target, field, cell);
 			determineLocalWinner_(field);			
 			switchPlayer_();
 
 			self.availableField = cell;
 		}
 
-		function makeStep_(cellDiv, field, cell) {
+		function makeTurn_(cellDiv, field, cell) {
 			var className = self.currentPlayer === enums.CellStates.Cross ? 'cross-cell' : 'zero-cell';
 			
 			$(cellDiv)
