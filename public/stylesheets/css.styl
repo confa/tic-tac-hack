@@ -1,29 +1,32 @@
 @import 'nib'
 
-width = 500px
-height = 500px
-
 body, html
 	width 100%
 	height 100%
 
 #game-container
-	width 30%
-	height 80%
+	width 60%
+	height 100%
+	min-height 400px
+	min-width 400px
 	margin auto
 
 .game-cell
-	width @css{calc(33% - 10px)}
-	height @css{calc(33% - 10px)}
+	position relative
+	width @css{calc(33% - 8px)}
 	border solid 1px #000
 	display inline-block
 	margin 3px
 	&.disabled
 		background rgba(0,0,0,0.2)
+	&:before
+		content ""
+		display block
+		padding-top 100% 	/* initial ratio of 1:1*/
 
 .game-field
-	width @css{calc(33% - 12px)}
-	height @css{calc(33% - 17px)}
+	width @css{calc(33% - 15px)}
+	position relative
 	display inline-block
 	padding 1px
 	margin-top 15px
@@ -31,7 +34,9 @@ body, html
 
 	&.current-field
 		box-shadow  0 0 15px #35E726
-
+	&:before
+		content: ""
+		display: block
 
 .zero-field
 	position absolute
@@ -59,22 +64,26 @@ body, html
 		transform rotate(90deg)	
 
 .zero-cell
-	border-radius 50px
 	border 4px solid #f44
-	width 36px
-	height 36px
-	margin 5px
+	position absolute
+	top @css{calc(4%)}
+	left @css{calc(3%)}
+	border-radius @css{calc(100%)}
+	width @css{calc(83% - 4px)}
+	height @css{calc(83% - 4px)}
 
 .cross-cell
-	width 48px
-	height 4px
+	width @css{calc(100%)}
+	height 5px
+	position absolute
+	top calc(44%)
+	left 0px
 	background #0A00FF
-	margin 24px 0 0 4px
 	transform rotate(-45deg)
 	&:after
 		content ''
-		width 48px
-		height 4px
+		width @css{calc(100%)}
+		height @css{calc(100%)}
 		background #0A00FF
 		position absolute
 		top 0px
