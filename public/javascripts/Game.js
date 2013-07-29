@@ -21,11 +21,7 @@ define(function(require) {
 			this.globalField.push(new Field(i));
 		}
 
-		gameCells.on({
-			mouseover: onMouseOver_,
-			mouseout: onMouseOut_,
-			click: onCellClick_
-		});
+		gameCells.on('click', onCellClick_);
 
 		function onCellClick_(item) {
 			var field = $(item.target).data('field');
@@ -47,11 +43,12 @@ define(function(require) {
 			var className = self.currentPlayer === enums.CellStates.Cross ? 'cross-cell' : 'zero-cell';
 			
 			$(cellDiv)
+				.addClass('cell-filled')
 				.append('<div class=\"'+className+'\"></div>')
-				.off('click mouseout mouseover');
+				.off('click');
 
 			gameFields
-				.off('click mouseout mouseover')
+				.off('click')
 				.removeClass('current-field');
 
 			$(".game-field-" + cell).addClass('current-field');
@@ -66,10 +63,7 @@ define(function(require) {
 				var currentField = $(".game-field-" + field);
 				var winnerClass = winnerResult.winner === enums.CellStates.Cross ? 'cross-field' : 'zero-field';
 
-				currentField.prepend('<div class=\"'+winnerClass+'\"></div>');
-				currentField.find('div.game-cell')
-							.addClass('disabled')
-							.off('click mouseout mouseover');				
+				currentField.addClass('winner-' + winnerClass);		
 			}
 		}
 
@@ -79,14 +73,6 @@ define(function(require) {
 			} else {
 				self.currentPlayer = enums.CellStates.Cross;
 			}
-		}
-
-		function onMouseOver_ (item) {
-			//$(item.target).css('box-shadow', '0 0 15px #767664');
-		}
-
-		function onMouseOut_ (item) {
-			//$(item.target).css('box-shadow', 'initial');
 		}
 	}
 

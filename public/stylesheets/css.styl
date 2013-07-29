@@ -5,10 +5,11 @@ body, html
 	height 100%
 
 #game-container
-	width 40%
+	width 30%
 	min-height 400px
 	min-width 400px
 	margin auto
+	display inline-block
 
 .game-cell
 	position relative
@@ -23,7 +24,9 @@ body, html
 		display block
 		padding-top 100% 	/* initial ratio of 1:1*/
 	&:hover
-		box-shadow 0 0 15px #f44
+		box-shadow 0 0 15px #F44
+	&.cell-filled
+		box-shadow 0 0 15px #0F0E0E
 
 .game-field
 	width @css{calc(33% - 15px)}
@@ -32,43 +35,23 @@ body, html
 	padding 1px
 	margin-top 15px
 	margin-right 10px
-
 	&.current-field
-		box-shadow  0 0 15px #35E726
-		
+		box-shadow  0 0 15px #35E726		
 		& .game-cell:hover
 			box-shadow 0 0 15px #44FF8F
 	&:before
 		content: ""
 		display: block
+	&.winner-cross-field
+		& div.game-cell
+			box-shadow 0 0 15px #0A00FF
+	&.winner-zero-field
+		& div.game-cell
+			box-shadow 0 0 15px #F44
 
-.zero-field
-	position absolute
-	border-radius 98px
-	border 10px solid #f44
-	width 156px
-	height 156px
-	margin 8px 0px 0px 4px
-
-.cross-field
-	position absolute
-	width 219px
-	height 14px
-	background #0A00FF
-	margin 95px 0 0 -17px
-	transform rotate(-45deg)
-	&:after
-		content ''
-		width 219px
-		height 14px
-		background #0A00FF
-		position absolute
-		top 0px
-		left 0px
-		transform rotate(90deg)	
 
 .zero-cell
-	border 4px solid #f44
+	border 4px solid #F44
 	position absolute
 	top @css{calc(4%)}
 	left @css{calc(3%)}
@@ -94,11 +77,21 @@ body, html
 		left 0px
 		transform rotate(90deg)
 
-#local-game-switch
-	cursor pointer
-	width 150px
-	height 50px
-	background blue
-	font-size 30pt
-	color white
-	text-align center
+#local-game-switch-container
+	width @css{calc(20%)}
+	height @css{calc(100%)}
+	display inline-block
+	position absolute
+	top 0px
+	#switch-button
+		cursor pointer
+		width @css{calc(50%)}
+		height @css{calc(5%)}
+		background #C9C9C9
+		font-size @css{calc(100%)}
+		color white
+		text-align center
+		border-radius 14px
+		position relative
+		top 27px
+		margin auto
