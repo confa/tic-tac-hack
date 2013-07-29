@@ -443,8 +443,16 @@
 			"file": "public/stylesheets/css.styl",
 			"settings":
 			{
-				"buffer_size": 1279,
+				"buffer_size": 1576,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/javascripts/Game.js",
+			"settings":
+			{
+				"buffer_size": 2427,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -647,7 +655,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
 			""
@@ -658,6 +666,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			";",
+			":",
+			";",
+			"\"\";",
 			"80",
 			"columns",
 			"rows",
@@ -781,11 +793,7 @@
 			"timeline-wrapper",
 			"match:current-playtime",
 			"eos",
-			"#logo",
-			"logo",
-			"body-left",
-			"prematch-background",
-			"content"
+			"#logo"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -803,7 +811,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -811,15 +819,15 @@
 					"file": "public/stylesheets/css.styl",
 					"settings":
 					{
-						"buffer_size": 1279,
+						"buffer_size": 1576,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1027,
-								1027
+								603,
+								603
 							]
 						],
 						"settings":
@@ -828,7 +836,34 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 168.0,
+						"translation.y": 42.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "public/javascripts/Game.js",
+					"settings":
+					{
+						"buffer_size": 2427,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2351,
+								2351
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -923,7 +958,7 @@
 		[
 			[
 				"",
-				"/D/CSBProject/CSB/csb.sublime-project"
+				"/D/Visualization/Visualisation/Visualisation/visualisation.sublime-project"
 			]
 		],
 		"width": 380.0

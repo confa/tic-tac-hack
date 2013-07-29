@@ -82,11 +82,11 @@ define(function(require) {
 		}
 
 		function onMouseOver_ (item) {
-			$(item.target).css('box-shadow', '0 0 15px #767664');
+			//$(item.target).css('box-shadow', '0 0 15px #767664');
 		}
 
 		function onMouseOut_ (item) {
-			$(item.target).css('box-shadow', 'initial');
+			//$(item.target).css('box-shadow', 'initial');
 		}
 	}
 

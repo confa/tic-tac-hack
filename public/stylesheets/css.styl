@@ -5,8 +5,7 @@ body, html
 	height 100%
 
 #game-container
-	width 60%
-	height 100%
+	width 40%
 	min-height 400px
 	min-width 400px
 	margin auto
@@ -23,6 +22,8 @@ body, html
 		content ""
 		display block
 		padding-top 100% 	/* initial ratio of 1:1*/
+	&:hover
+		box-shadow 0 0 15px #f44
 
 .game-field
 	width @css{calc(33% - 15px)}
@@ -34,6 +35,9 @@ body, html
 
 	&.current-field
 		box-shadow  0 0 15px #35E726
+		
+		& .game-cell:hover
+			box-shadow 0 0 15px #44FF8F
 	&:before
 		content: ""
 		display: block
@@ -89,3 +93,12 @@ body, html
 		top 0px
 		left 0px
 		transform rotate(90deg)
+
+#local-game-switch
+	cursor pointer
+	width 150px
+	height 50px
+	background blue
+	font-size 30pt
+	color white
+	text-align center
