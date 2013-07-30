@@ -87,7 +87,6 @@ body, html
 		cursor pointer
 		width @css{calc(50%)}
 		height @css{calc(5%)}
-		background #C9C9C9
 		font-size @css{calc(100%)}
 		color white
 		text-align center
@@ -95,3 +94,11 @@ body, html
 		position relative
 		top 27px
 		margin auto
+		background #1A42FF
+		&:before
+			content 'Local '
+
+		&.network-game
+			background #28A140
+			&:before
+				content 'Network '

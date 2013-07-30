@@ -1,21 +1,20 @@
 define(function(require) {
 	'use strict';
 
-	var SocketHandler = require('./SocketHandler'),
+	var socketHandler = require('./SocketHandler'),
 		enums = require('./shared/enums'),
 		Field = require('./Field'),
+		GameController = require('./GameController'),
 		$ = require('jquery');
 
 	function Game (options) {
-		this.socketHandler = new SocketHandler();
 		this.globalField = [];	
 		this.availableField = undefined;
+		this.gameController = new GameController(); 
 		var self = this;
 
 		var gameCells = $('.game-cell');
 		var gameFields = $('.game-field');
-
-		this.currentPlayer = enums.CellStates.Cross;
 
 		for (var i = 0; i <= 8; i++) {
 			this.globalField.push(new Field(i));
@@ -34,13 +33,13 @@ define(function(require) {
 			
 			makeTurn_(item.target, field, cell);
 			determineLocalWinner_(field);			
-			switchPlayer_();
+			self.gameController.switchPlayer();
 
 			self.availableField = cell;
 		}
 
 		function makeTurn_(cellDiv, field, cell) {
-			var className = self.currentPlayer === enums.CellStates.Cross ? 'cross-cell' : 'zero-cell';
+			var className = self.gameController.currentPlayer === enums.CellStates.Cross ? 'cross-cell' : 'zero-cell';
 			
 			$(cellDiv)
 				.addClass('cell-filled')
@@ -52,7 +51,7 @@ define(function(require) {
 				.removeClass('current-field');
 
 			$(".game-field-" + cell).addClass('current-field');
-			self.globalField[field].toggleStateByNumber(cell, self.currentPlayer);
+			self.globalField[field].toggleStateByNumber(cell, self.gameController.currentPlayer);
 		}
 
 		function determineLocalWinner_(field) {
@@ -67,13 +66,6 @@ define(function(require) {
 			}
 		}
 
-		function switchPlayer_() {
-			if(self.currentPlayer === enums.CellStates.Cross) {
-				self.currentPlayer = enums.CellStates.Zero;
-			} else {
-				self.currentPlayer = enums.CellStates.Cross;
-			}
-		}
 	}
 
 	return new Game();

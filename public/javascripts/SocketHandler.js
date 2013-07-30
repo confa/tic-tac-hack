@@ -42,5 +42,5 @@ define(function(require) {
 		}
 	};
 
-	return SocketHandler;
+	return new SocketHandler();
 });
