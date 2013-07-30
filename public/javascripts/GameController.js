@@ -9,14 +9,10 @@ define(function(require){
 
 		var el_ = {};
 		el_.switchButton = $('#switch-button');
+
 		el_.switchButton.on('click', onSwitch_);
 
 		var localGame_ = true;
-
-		function onSwitch_(item){
-			localGame_ = !localGame_;
-			el_.switchButton.toggleClass('network-game');
-		} 
 
 		this.switchPlayer = function() {
 			if (localGame_){
@@ -27,6 +23,16 @@ define(function(require){
 				}
 			}
 		};
+
+		this.getState = function(){
+			return localGame_;
+		};
+
+		function onSwitch_(item){
+			localGame_ = !localGame_;
+			el_.switchButton.toggleClass('network-game');
+		} 
+
 	}
 
 	return GameController;

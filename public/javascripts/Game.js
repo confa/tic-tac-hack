@@ -8,19 +8,27 @@ define(function(require) {
 		$ = require('jquery');
 
 	function Game (options) {
-		this.globalField = [];	
-		this.availableField = undefined;
 		this.gameController = new GameController(); 
 		var self = this;
 
-		var gameCells = $('.game-cell');
-		var gameFields = $('.game-field');
+		var el_ = {};
+		el_.gameCells = $('.game-cell');
+		el_.gameFields = $('.game-field');
+		el_.newGameButton = $('#new-game-button');
 
-		for (var i = 0; i <= 8; i++) {
-			this.globalField.push(new Field(i));
+		initializeGame();
+
+		el_.gameCells.on('click', onCellClick_);
+		el_.newGameButton.on('click', newGame_);
+
+		function initializeGame(){
+			self.globalField = [];	
+			self.availableField = undefined;
+
+			for (var i = 0; i <= 8; i++) {
+				self.globalField.push(new Field(i));
+			}
 		}
-
-		gameCells.on('click', onCellClick_);
 
 		function onCellClick_(item) {
 			var field = $(item.target).data('field');
@@ -46,7 +54,7 @@ define(function(require) {
 				.append('<div class=\"'+className+'\"></div>')
 				.off('click');
 
-			gameFields
+			el_.gameFields
 				.off('click')
 				.removeClass('current-field');
 
@@ -66,6 +74,23 @@ define(function(require) {
 			}
 		}
 
+		function newGame_(){
+			if (self.gameController.getState()){
+				initializeGame();
+				revertChanges();
+			}
+		}
+
+		function revertChanges(){
+			el_.gameFields
+						.removeClass('current-field')
+						.removeClass('winner-zero-field')
+						.removeClass('winner-cross-field');
+			el_.gameCells.each(function(idx, it){
+				$(it).attr('class', 'game-cell');
+				$(it).empty();
+			});
+		}
 	}
 
 	return new Game();
