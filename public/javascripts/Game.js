@@ -68,9 +68,13 @@ define(function(require) {
 
 			if(typeof winnerResult !== 'undefined') {
 				var currentField = $(".game-field-" + field);
-				var winnerClass = winnerResult.winner === enums.CellStates.Cross ? 'cross-field' : 'zero-field';
+				var winnerClass = winnerResult.winner === enums.CellStates.Cross ? 'cross' : 'zero';
 
-				currentField.addClass('winner-' + winnerClass);		
+				currentField.addClass('winner-' + winnerClass + '-field');
+				
+				$('.global-game-cell[data-cell=' + field + ']')
+							.addClass('cell-filled')
+							.append('<div class=\"'+winnerClass+'-cell\"></div>');
 			}
 		}
 

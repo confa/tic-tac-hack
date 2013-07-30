@@ -47,28 +47,28 @@ define(function(require) {
 
 		determineWinner: function() {
 			
-			var leftDiagonal = this.checkLeftDiagonal();
+			var leftDiagonal = this.checkLeftDiagonal_();
 
 			if(leftDiagonal)
 				return leftDiagonal;
 
-			var rightDiagonal = this.checkRightDiagonal();
+			var rightDiagonal = this.checkRightDiagonal_();
 
 			if(rightDiagonal)
 				return rightDiagonal;
 
-			var horizontals = this.checkHorizontals();
+			var horizontals = this.checkHorizontals_();
 
 			if(horizontals)
 				return horizontals;
 
-			var vertivals = this.checkVerticals();
+			var vertivals = this.checkVerticals_();
 
 			if(vertivals)
 				return vertivals;
 		},
 
-		checkHorizontals: function () {
+		checkHorizontals_: function () {
 			for(var i = 0, len = this.cellsArray.length - 1; i < len; i+=this.dimensions) {
 				var currentState = this.cellsArray[i].getState();
 				var seria = true;
@@ -92,7 +92,7 @@ define(function(require) {
 			return false;
 		},
 
-		checkVerticals: function() {
+		checkVerticals_: function() {
 			for(var i = 0, len = this.dimensions; i < len; i++) {
 				var currentState = this.cellsArray[i].getState();
 				var seria = true;
@@ -115,7 +115,7 @@ define(function(require) {
 			}
 		},
 
-		checkLeftDiagonal: function() {
+		checkLeftDiagonal_: function() {
 			var last = this.cellsArray.length-1;
 			var currentState = this.cellsArray[last].getState();
 			var seria = true;
@@ -137,7 +137,7 @@ define(function(require) {
 			}
 		},
 
-		checkRightDiagonal: function() {
+		checkRightDiagonal_: function() {
 			var currentState = this.cellsArray[this.dimensions-1].getState();
 			var seria = true;
 
