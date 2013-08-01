@@ -15,6 +15,7 @@ define(function(require) {
 		el_.gameCells = $('.game-cell');
 		el_.gameFields = $('.game-field');
 		el_.newGameButton = $('#new-game-button');
+		el_.gameOverLayer = $('#game-over-container');
 
 		initializeGame();
 
@@ -22,12 +23,14 @@ define(function(require) {
 		el_.newGameButton.on('click', newGame_);
 
 		function initializeGame(){
-			self.globalField = [];	
+			self.fieldGrid = [];
 			self.availableField = undefined;
 
 			for (var i = 0; i <= 8; i++) {
-				self.globalField.push(new Field(i));
+				self.fieldGrid.push(new Field(i));
 			}
+
+			self.globalField = new Field(++i);
 		}
 
 		function onCellClick_(item) {
@@ -40,9 +43,14 @@ define(function(require) {
 			//console.log('field: ' + field + '; cell: ' + cell);
 			
 			makeTurn_(item.target, field, cell);
-			determineLocalWinner_(field);			
-			self.gameController.switchPlayer();
+			var winner = determineLocalWinner_(field);	
 
+			if(typeof winner !== 'undefined') {
+				this.gameOver = true;
+				el_.gameOverLayer.show();
+			}
+
+			self.gameController.switchPlayer();
 			self.availableField = cell;
 		}
 
@@ -59,14 +67,19 @@ define(function(require) {
 				.removeClass('current-field');
 
 			$(".game-field-" + cell).addClass('current-field');
-			self.globalField[field].toggleStateByNumber(cell, self.gameController.currentPlayer);
+			self.fieldGrid[field].toggleStateByNumber(cell, self.gameController.currentPlayer);
 		}
 
 		function determineLocalWinner_(field) {
 
-			var winnerResult = self.globalField[field].determineWinner();
+			var current = self.fieldGrid[field];
+			var winnerResult = current.determineWinner();
 
 			if(typeof winnerResult !== 'undefined') {
+
+				if(current.isWinnerDefined())
+					return;
+
 				var currentField = $(".game-field-" + field);
 				var winnerClass = winnerResult.winner === enums.CellStates.Cross ? 'cross' : 'zero';
 
@@ -75,6 +88,12 @@ define(function(require) {
 				$('.global-game-cell[data-cell=' + field + ']')
 							.addClass('cell-filled')
 							.append('<div class=\"'+winnerClass+'-cell\"></div>');
+
+				current.setWinnerDefine();
+
+				var winner = winnerResult.winner;
+				self.globalField.toggleStateByNumber(field, self.gameController.currentPlayer);
+				return self.globalField.determineWinner();
 			}
 		}
 
@@ -94,6 +113,7 @@ define(function(require) {
 				$(it).attr('class', 'game-cell');
 				$(it).empty();
 			});
+			el_.gameOverLayer.hide();
 		}
 	}
 

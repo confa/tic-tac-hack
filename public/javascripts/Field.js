@@ -4,11 +4,11 @@ define(function(require) {
 	var Cell = require('./Cell');
 
 	function Field (number) {
-		var _number;
+		var _number,
+			_winnerDefined = false;
 
 		this.cellsArray = [];
 		this.dimensions = 3;
-
 
 		if(typeof number === 'number') {
 			_number = number;
@@ -20,6 +20,14 @@ define(function(require) {
 
 		this.getNumber = function () {
 			return _number;
+		};
+
+		this.setWinnerDefine = function () {
+			_winnerDefined = true;
+		};
+
+		this.isWinnerDefined = function () {
+			return _winnerDefined;
 		};
 	}
 
@@ -84,7 +92,8 @@ define(function(require) {
 
 				if(seria === true) { 
 					//console.log('Horizontal: line from ' + i + ' to ' + (i + this.dimensions) + ' winner ' + currentState);
-					return {from: i, to: i+this.dimensions, winner: currentState};
+					this.setWinnerDefi
+					return {from: i, to: i + this.dimensions, winner: currentState};
 				} else {
 					seria = true;
 				}
@@ -108,7 +117,8 @@ define(function(require) {
 
 				if(seria === true) { 
 					//console.log('Vertical: line from ' + i + ' to ' + (i + this.dimensions) + ' winner ' + currentState);
-					return {from: i, to: i+this.dimensions, winner: currentState};
+
+					return {from: i, to: i + this.dimensions, winner: currentState};
 				} else {
 					seria = true;
 				}
