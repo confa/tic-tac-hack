@@ -1,10 +1,17 @@
 require.config({
-  baseUrl: 'javascripts',
+	baseUrl: 'javascripts',
 
-  paths: {
-    jquery: 'libs/jquery'
-  }
+	shim:{
+		'socketio': {
+			exports: 'io'
+		}
+	},
+
+	paths: {
+		jquery: 'libs/jquery',
+		socketio: '../socket.io/socket.io'
+	}
 
 });
 
-require(['Game']);
+require(['Game', 'SocketHandler']);

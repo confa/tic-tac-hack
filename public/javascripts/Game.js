@@ -1,11 +1,11 @@
 define(function(require) {
 	'use strict';
 
-	var socketHandler = require('./SocketHandler'),
-		enums = require('./shared/enums'),
+	var enums = require('./shared/enums'),
 		utils = require('./shared/utils'),
 		Field = require('./Field'),
 		GameController = require('./GameController'),
+		mediator = require('libs/mediator'),
 		$ = require('jquery');
 
 	function Game (options) {
@@ -23,6 +23,43 @@ define(function(require) {
 		el_.gameCells.on('click', onCellClick_);
 		el_.newGameButton.on('click', newGame_);
 
+
+		this.makeTurn = function (options) {
+			var className = options.player === enums.CellStates.Cross ? 'cross-cell' : 'zero-cell';
+			
+			if (typeof options.cellDiv === 'undefined'){
+				options.cellDiv = $('[data-field="{0}"][data-cell="{1}"]'.format(options.field, options.cell));
+			}
+
+			$(options.cellDiv)
+				.addClass('cell-filled')
+				.append('<div class=\"{0}\"></div>'.format(className))
+				.off('click');
+
+			el_.gameFields
+				.off('click')
+				.removeClass('current-field');
+
+			$(".game-field-{0}".format(options.cell)).addClass('current-field');
+
+			var winner = determineLocalWinner_(options.field);	
+
+			if(typeof winner !== 'undefined') {
+				//this.gameOver = true;
+				el_.gameOverLayer.show();
+			}
+
+			self.gameController.switchPlayer();
+			self.availableField = options.cell;
+
+			self.fieldGrid[options.field].toggleStateByNumber(options.cell, self.gameController.currentPlayer);
+			if (!self.gameController.isLocal()){
+				self.gameController.turnAllowed = !self.gameController.turnAllowed;
+			}
+		};
+
+		initializeSubscriptions();
+
 		function initializeGame(){
 			self.fieldGrid = [];
 			self.availableField = undefined;
@@ -34,41 +71,31 @@ define(function(require) {
 			self.globalField = new Field(++i);
 		}
 
-		function onCellClick_(item) {
-			var field = $(item.target).data('field');
-			var cell = $(item.target).data('cell');
-
-			if(field !== self.availableField && typeof self.availableField !== 'undefined') 
-				return;
-
-			//console.log('field: ' + field + '; cell: ' + cell);
-			
-			makeTurn_(item.target, field, cell);
-			var winner = determineLocalWinner_(field);	
-
-			if(typeof winner !== 'undefined') {
-				//this.gameOver = true;
-				el_.gameOverLayer.show();
-			}
-
-			self.gameController.switchPlayer();
-			self.availableField = cell;
+		function initializeSubscriptions(){
+			mediator.on('turn:network', self.makeTurn);
 		}
 
-		function makeTurn_(cellDiv, field, cell) {
-			var className = self.gameController.currentPlayer === enums.CellStates.Cross ? 'cross-cell' : 'zero-cell';
-			
-			$(cellDiv)
-				.addClass('cell-filled')
-				.append('<div class=\"{0}\"></div>'.format(className))
-				.off('click');
+		function onCellClick_(item) {
+			if (self.gameController.turnAllowed){
+				var field = $(item.target).data('field');
+				var cell = $(item.target).data('cell');
 
-			el_.gameFields
-				.off('click')
-				.removeClass('current-field');
+				if(field !== self.availableField && typeof self.availableField !== 'undefined') 
+					return;
 
-			$(".game-field-{0}".format(cell)).addClass('current-field');
-			self.fieldGrid[field].toggleStateByNumber(cell, self.gameController.currentPlayer);
+				//console.log('field: ' + field + '; cell: ' + cell);
+				var options = {
+					player: self.gameController.currentPlayer,
+					field: field,
+					cell: cell,
+					cellDiv: item.target
+				};
+				if (self.gameController.isLocal()){
+					self.makeTurn(options);
+				} else {
+					mediator.publish('turn:local', options);
+				}
+			}
 		}
 
 		function determineLocalWinner_(field) {
@@ -99,7 +126,7 @@ define(function(require) {
 		}
 
 		function newGame_(){
-			if (self.gameController.getState()){
+			if (self.gameController.isLocal()){
 				initializeGame();
 				revertChanges();
 			}

@@ -1,18 +1,24 @@
 define(function(require){
 	'use strict';
 
-	var enums = require('shared/enums');
+	var enums = require('shared/enums'),
+		mediator = require('libs/mediator');
 
 	function GameController(){
 
 		this.currentPlayer = enums.CellStates.Cross;
+		this.turnAllowed = true;
+
+		mediator.on('shape',function(shape){
+			this.currentPlayer = shape;
+		});
 
 		var el_ = {};
 		el_.switchButton = $('#switch-button');
 
 		el_.switchButton.on('click', onSwitch_);
 
-		var localGame_ = true;
+		var localGame_ = false;
 
 		this.switchPlayer = function() {
 			if (localGame_){
@@ -24,7 +30,7 @@ define(function(require){
 			}
 		};
 
-		this.getState = function(){
+		this.isLocal = function(){
 			return localGame_;
 		};
 
@@ -32,6 +38,7 @@ define(function(require){
 			localGame_ = !localGame_;
 			el_.switchButton.toggleClass('network-game');
 		} 
+
 
 	}
 
