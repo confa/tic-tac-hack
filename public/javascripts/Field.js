@@ -92,7 +92,6 @@ define(function(require) {
 
 				if(seria === true) { 
 					//console.log('Horizontal: line from ' + i + ' to ' + (i + this.dimensions) + ' winner ' + currentState);
-					this.setWinnerDefi
 					return {from: i, to: i + this.dimensions, winner: currentState};
 				} else {
 					seria = true;
@@ -117,7 +116,6 @@ define(function(require) {
 
 				if(seria === true) { 
 					//console.log('Vertical: line from ' + i + ' to ' + (i + this.dimensions) + ' winner ' + currentState);
-
 					return {from: i, to: i + this.dimensions, winner: currentState};
 				} else {
 					seria = true;

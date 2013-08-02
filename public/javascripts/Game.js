@@ -3,6 +3,7 @@ define(function(require) {
 
 	var socketHandler = require('./SocketHandler'),
 		enums = require('./shared/enums'),
+		utils = require('./shared/utils'),
 		Field = require('./Field'),
 		GameController = require('./GameController'),
 		$ = require('jquery');
@@ -46,7 +47,7 @@ define(function(require) {
 			var winner = determineLocalWinner_(field);	
 
 			if(typeof winner !== 'undefined') {
-				this.gameOver = true;
+				//this.gameOver = true;
 				el_.gameOverLayer.show();
 			}
 
@@ -59,14 +60,14 @@ define(function(require) {
 			
 			$(cellDiv)
 				.addClass('cell-filled')
-				.append('<div class=\"'+className+'\"></div>')
+				.append('<div class=\"{0}\"></div>'.format(className))
 				.off('click');
 
 			el_.gameFields
 				.off('click')
 				.removeClass('current-field');
 
-			$(".game-field-" + cell).addClass('current-field');
+			$(".game-field-{0}".format(cell)).addClass('current-field');
 			self.fieldGrid[field].toggleStateByNumber(cell, self.gameController.currentPlayer);
 		}
 
@@ -80,14 +81,14 @@ define(function(require) {
 				if(current.isWinnerDefined())
 					return;
 
-				var currentField = $(".game-field-" + field);
+				var currentField = $(".game-field-{0}".format(field));
 				var winnerClass = winnerResult.winner === enums.CellStates.Cross ? 'cross' : 'zero';
 
-				currentField.addClass('winner-' + winnerClass + '-field');
+				currentField.addClass('winner-{0}-field'.format(winnerClass));
 				
-				$('.global-game-cell[data-cell=' + field + ']')
+				$('.global-game-cell[data-cell={0}]'.format(field))
 							.addClass('cell-filled')
-							.append('<div class=\"'+winnerClass+'-cell\"></div>');
+							.append('<div class=\"{0}-cell\"></div>'.format(winnerClass));
 
 				current.setWinnerDefine();
 
