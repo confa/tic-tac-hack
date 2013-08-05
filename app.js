@@ -21,6 +21,7 @@ io.sockets.on('connection', function (socket) {
 		cross = true;
 		socket.on('turn', function (data) {
 			socket.broadcast.emit('turn', data);
+			socket.emit('turn', data);
 		});
 	}
 });

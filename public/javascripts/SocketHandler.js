@@ -26,6 +26,7 @@ define(function(require) {
 
 	function onTurn_(data){
 		if (typeof data.player !== 'undefined' && typeof data.cell === 'number' && typeof data.field === 'number'){
+			console.log(data);
 			mediator.publish('turn:network', data);
 		}
 	}
@@ -33,6 +34,7 @@ define(function(require) {
 	function onConnection_(shape){
 		if (typeof shape !== 'undefined'){
 			mediator.publish('shape', shape);
+			console.log('shape', shape);
 		}
 	}
 

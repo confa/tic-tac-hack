@@ -8,9 +8,10 @@ define(function(require){
 
 		this.currentPlayer = enums.CellStates.Cross;
 		this.turnAllowed = true;
-
+		var self = this;
 		mediator.on('shape',function(shape){
-			this.currentPlayer = shape;
+			self.currentPlayer = shape;
+			self.turnAllowed = shape === enums.CellStates.Cross;
 		});
 
 		var el_ = {};
@@ -24,8 +25,6 @@ define(function(require){
 			if (localGame_){
 				if(this.currentPlayer === enums.CellStates.Cross) {
 					this.currentPlayer = enums.CellStates.Zero;
-				} else {
-					this.currentPlayer = enums.CellStates.Cross;
 				}
 			}
 		};

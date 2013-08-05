@@ -53,6 +53,7 @@ define(function(require) {
 			self.availableField = options.cell;
 
 			self.fieldGrid[options.field].toggleStateByNumber(options.cell, self.gameController.currentPlayer);
+			
 			if (!self.gameController.isLocal()){
 				self.gameController.turnAllowed = !self.gameController.turnAllowed;
 			}
