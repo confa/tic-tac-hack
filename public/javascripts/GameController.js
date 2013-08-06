@@ -3,8 +3,7 @@ define(function(require){
 
 	var enums = require('shared/enums'),
 		mediator = require('libs/mediator'),
-		Game = require('Game'),
-		mediator = require('libs/mediator');
+		Game = require('Game');
 		// require = require('ViewManager');
 
 	function GameController(){
@@ -16,7 +15,8 @@ define(function(require){
 		el_.player2Name = $('#player2-name');
 
 		var names = {};
-		
+		names.player1 = 'player 1';
+		names.player2 = 'player 2';
 
 		function bindListeners_(){
 			el_.switchButton.on('change', onSwitch_);
@@ -29,7 +29,8 @@ define(function(require){
 				var container = $(this);
 				if (container.val().length === 0){
 					container.val('player');
-				}
+				}  
+
 			});
 		}
 
@@ -47,7 +48,7 @@ define(function(require){
 				isLocal: localGame_
 			};
 			if (!localGame_){
-				mediator.publish('game-controller:new', {player1: })
+				mediator.publish('game-controller:new', {player1: names.player1, player2: names.player2});
 			}
 			new Game(options);
 		}
