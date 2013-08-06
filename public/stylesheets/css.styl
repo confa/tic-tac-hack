@@ -11,6 +11,9 @@ body, html
 	-ms-user-select: none
 	user-select: none
 
+#main-game-container
+	display none
+
 #game-container
 	width 30%
 	min-height 400px
@@ -111,7 +114,7 @@ body, html
 	height 20%
 
 #switch-button
-#new-game-button
+.game-button
 	cursor pointer
 	width 145px
 	height 21px
@@ -126,15 +129,11 @@ body, html
 #switch-button
 	top 47px
 	background #1A42FF
-	&:before
-		content 'Local '
 
 	&.network-game
 		background #28A140
-		&:before
-			content 'Network '
 
-#new-game-button
+.game-button
 	top 27px
 	background #B35151
 
@@ -149,3 +148,8 @@ body, html
 	background rgba(0, 0, 0, 0.2)
 	z-index 10000
 	display none
+
+#right-menu-container, #player-list-container
+	float left
+	width 20%
+			

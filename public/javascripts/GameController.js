@@ -2,7 +2,8 @@ define(function(require){
 	'use strict';
 
 	var enums = require('shared/enums'),
-		mediator = require('libs/mediator');
+		mediator = require('libs/mediator'),
+		require = require('ViewManager');
 
 	function GameController(){
 
