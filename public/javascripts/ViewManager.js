@@ -1,6 +1,7 @@
 define(function (require)
 {
 	'use strict';
+	var $ = require('jquery');
 
 	var ViewManager = function () {
 		var MenuView = $('#main-menu-container'),
