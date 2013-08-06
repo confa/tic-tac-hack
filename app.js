@@ -13,7 +13,7 @@ var cross = false,
 	connected = 0;
 
 io.sockets.on('connection', function (socket) {
-	if (connected < 2){
+	if (connected < 1000){
 		var shape = cross === true ? enums.CellStates.Zero : enums.CellStates.Cross;
 		connected++;
 		socket.emit('shape', shape);

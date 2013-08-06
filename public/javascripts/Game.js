@@ -123,7 +123,7 @@ define(function(require) {
 
 				currentField.addClass('winner-{0}-field'.format(winnerClass));
 				
-				$('.global-game-cell[data-cell={0}]'.format(field))
+				$('.global-game-cell[data-field={0}]'.format(field))
 							.addClass('cell-filled')
 							.append('<div class=\"{0}-cell\"></div>'.format(winnerClass));
 

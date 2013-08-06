@@ -1,6 +1,7 @@
 doctype 5
 html
 	head
+		title Tic Tac Hack
 		link(rel="stylesheet", href="./publish/css.css")
 	body
 		#main-menu-container
@@ -12,7 +13,7 @@ html
 			#right-menu-container
 				#buttons-container
 					input#local-network-switcher(type='checkbox', checked='true')
-					label Network
+					label(for="local-network-switcher") Network
 				#start-game-button.game-button Start Game
 
 		#main-game-container
@@ -21,16 +22,16 @@ html
 				- for (var i = 0; i < 9; ++i) {
 				div(class="game-field game-field-" + i)
 					- for (var j = 0; j < 9; ++j) {
-					div(class="game-cell", data-field = j, data-cell = i)
+					div(class="game-cell", data-field = i, data-cell = j)
 					- }	
 				- }				
 
 			#menu-container
 				#global-field-container
 					div(class="game-field", id="global-game-field")
-					- for (var i = 0; i < 9; ++i) {
-					div(class="game-cell", data-field = i)
-					- }	
+						- for (var i = 0; i < 9; ++i) {
+						div(class="global-game-cell", data-field = i)
+						- }	
 
 				#buttons-container
 					#back-game-button.game-button Back

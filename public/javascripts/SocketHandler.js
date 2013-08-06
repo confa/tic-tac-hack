@@ -9,7 +9,7 @@ define(function(require) {
 
 	function SocketHandler() {
 		var self = this;
-		socket = io.connect('http://192.168.1.109:1414');
+		socket = io.connect('http://localhost:1414');
 		socket.on('turn', onTurn_);
 		socket.on('shape', onConnection_);
 		socket.on('denied', onDenied_);
