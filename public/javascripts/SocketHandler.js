@@ -9,9 +9,11 @@ define(function(require) {
 
 	function SocketHandler() {
 		var self = this;
-		socket = io.connect('http://localhost:1414');
+		socket = io.connect('http://192.168.1.109:1414');
 		socket.on('turn', onTurn_);
 		socket.on('shape', onConnection_);
+		socket.on('denied', onDenied_);
+		socket.on('opponent:disconnected', onDisconnect_);
 		mediator.on('turn:local', function(data){self.pubTurn(data);});
 	}
 
@@ -36,6 +38,14 @@ define(function(require) {
 			mediator.publish('shape', shape);
 			console.log('shape', shape);
 		}
+	}
+
+	function onDenied_(){
+		alert("No vacant seats. Try later");
+	}
+
+	function onDisconnect_(){
+		alert("Opponent disconnected");
 	}
 
 	return new SocketHandler();

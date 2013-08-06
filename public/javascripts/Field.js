@@ -70,10 +70,10 @@ define(function(require) {
 			if(horizontals)
 				return horizontals;
 
-			var vertivals = this.checkVerticals_();
+			var vertials = this.checkVerticals_();
 
-			if(vertivals)
-				return vertivals;
+			if(vertials)
+				return vertials;
 		},
 
 		checkHorizontals_: function () {

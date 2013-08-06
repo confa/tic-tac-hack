@@ -14,4 +14,4 @@ require.config({
 
 });
 
-require(['Game', 'SocketHandler']);
+require(['GameController', 'SocketHandler']);

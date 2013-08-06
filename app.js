@@ -20,8 +20,14 @@ io.sockets.on('connection', function (socket) {
 		console.log('connected' + connected + '. shape: ' + shape)
 		cross = true;
 		socket.on('turn', function (data) {
-			socket.broadcast.emit('turn', data);
-			socket.emit('turn', data);
+			io.sockets.emit('turn', data);
 		});
+		
+		socket.on('disconnect', function(){
+			io.sockets.emit('opponent:disconnected');
+		});
+	} else {
+		socket.emit('denied');
+		socket.disconnect();
 	}
 });
