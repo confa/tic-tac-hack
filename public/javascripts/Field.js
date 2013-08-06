@@ -44,9 +44,7 @@ define(function(require) {
 				}
 			}
 
-			throw new Error('The cell with number ' + number + 
-							' was not found in ' + this.getNumber() + 
-							' field!');
+			throw new Error('The cell with number {0} was not found in {1} field!'.format(number, this.getNumber()));
 		},
 
 		toggleStateByNumber: function(number, state) {
