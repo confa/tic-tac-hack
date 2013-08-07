@@ -8,7 +8,7 @@ require.config({
 	},
 
 	paths: {
-		jquery: 'libs/jquery',
+		jquery: 'libs/jquery.min',
 		socketio: '../socket.io/socket.io'
 	}
 
