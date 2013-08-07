@@ -3,8 +3,8 @@ define(function(require){
 
 	var enums = require('shared/enums'),
 		mediator = require('libs/mediator'),
-		Game = require('Game');
-		// require = require('ViewManager');
+		Game = require('Game'),
+		viewManager = require('ViewManager');
 
 	function GameController(){
 
@@ -48,7 +48,7 @@ define(function(require){
 				isLocal: localGame_
 			};
 			if (!localGame_){
-				mediator.publish('game-controller:new', {player1: names.player1, player2: names.player2});
+				mediator.publish('game-controller:new', {player1: names.player1, player2: names.player2, timestamp: new Date()});
 			}
 			new Game(options);
 		}

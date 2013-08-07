@@ -14,28 +14,25 @@ define(function(require) {
 		socket.on('shape', onConnection_);
 		socket.on('denied', onDenied_);
 		socket.on('opponent:disconnected', onDisconnect_);
-		mediator.on('turn:local', function(data){self.pubTurn(data);});
+		mediator.on('game:turn-local', function(data){publish_(data);});
+		mediator.on('game-controller:new', function(data){publish_(data);});
 	}
 
-	SocketHandler.prototype = {
-
-		pubTurn: function(data){
+	function publish_ (data){
 			delete data.cellDiv;
 			socket.emit('turn', data);
-		}
-
-	};
+	}
 
 	function onTurn_(data){
 		if (typeof data.player !== 'undefined' && typeof data.cell === 'number' && typeof data.field === 'number'){
 			console.log(data);
-			mediator.publish('turn:network', data);
+			mediator.publish('socket:turn-network', data);
 		}
 	}
 
 	function onConnection_(shape){
 		if (typeof shape !== 'undefined'){
-			mediator.publish('shape', shape);
+			mediator.publish('socket:shape', shape);
 			console.log('shape', shape);
 		}
 	}

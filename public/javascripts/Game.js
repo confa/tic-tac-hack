@@ -65,7 +65,7 @@ define(function(require) {
 
 			self.currentPlayer = enums.CellStates.Cross;
 			self.turnAllowed = true;
-			mediator.on('shape',function(shape){
+			mediator.on('socket:shape',function(shape){
 				self.currentPlayer = shape;
 				self.turnAllowed = shape === enums.CellStates.Cross;
 			});
@@ -83,7 +83,7 @@ define(function(require) {
 		}
 
 		function initializeSubscriptions(){
-			mediator.on('turn:network', self.makeTurn);
+			mediator.on('socket:turn-network', self.makeTurn);
 		}
 
 		function onCellClick_(item) {
@@ -103,7 +103,7 @@ define(function(require) {
 				if (isLocal_){
 					self.makeTurn(options);
 				} else {
-					mediator.publish('turn:local', options);
+					mediator.publish('game:turn-local', options);
 				}
 			}
 		}
