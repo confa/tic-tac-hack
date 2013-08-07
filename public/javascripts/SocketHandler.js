@@ -42,7 +42,7 @@ define(function(require) {
 		},
 
 		onGameAdd_: function (game) {
-			mediator.publish('socket:games-add', game);
+			mediator.publish('socket:games-added', game);
 		},
 
 		onGameRemove_: function (game) {

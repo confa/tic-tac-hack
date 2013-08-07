@@ -4,7 +4,8 @@ define(function(require){
 	var enums = require('shared/enums'),
 		mediator = require('libs/mediator'),
 		Game = require('Game'),
-		viewManager = require('ViewManager');
+		viewManager = require('ViewManager'),
+		gamesList = require('GamesList');
 
 	function GameController(){
 
