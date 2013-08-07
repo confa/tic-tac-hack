@@ -42,9 +42,7 @@ define(function(require) {
 			var winner = determineLocalWinner_(options.field);	
 			
 			switchPlayer();
-			self.availableField = options.cell;
-
-			
+			self.availableField = options.cell;			
 
 			if (!isLocal_){
 				self.turnAllowed = !self.turnAllowed;

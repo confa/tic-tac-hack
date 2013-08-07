@@ -11,4 +11,11 @@ define(function (require)
 			});
 		};
 	}
+
+	return {
+		prependZero : function(source, minLength) {
+				var length = source.toString().length;
+				return (length > minLength ? source : new Array(minLength - length + 1).join('0') + source);
+			}
+	};
 });

@@ -22,6 +22,7 @@ define(function(require){
 		function bindListeners_(){
 			el_.switchButton.on('change', onSwitch_);
 			el_.newGameButton.on('click', newGame_);
+			
 			$('.player-name').on('focus', function(){
 				var container = $(this);
 				container.val('');

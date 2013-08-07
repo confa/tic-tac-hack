@@ -9,12 +9,13 @@ define(function(require) {
 
 	function SocketHandler() {
 		var self = this;
-		socket = io.connect('http://localhost:1414');
+		socket = io.connect('http://localhost:5858');
 		socket.on('turn', listeners.onTurn_);
 		socket.on('shape', listeners.onGameStart_);
 		socket.on('games-list', listeners.onConnection_);
 		socket.on('game-added', listeners.onGameAdd_);
-		socket.on('game-started', listeners.onGameRemove_);
+		socket.on('games-removed', listeners.onGameRemove_);
+		socket.on('game-started', listeners.onGameStarted_);
 		socket.on('denied', listeners.onDenied_);
 		socket.on('opponent:disconnected', listeners.onDisconnect_);
 		socket.on('opponent:disconnected', listeners.onDisconnect_);
@@ -22,8 +23,9 @@ define(function(require) {
 
 		mediator.on('game:turn-local', function(data){publish_('turn', data);});
 		mediator.on('game-controller:new', function(data){publish_('new-game', data);});
+		mediator.on('game-list:join', function (data) {publish_('join', data);});
 	}
-
+	
 	function publish_ (message, data){
 			delete data.cellDiv;
 			socket.emit(message, data);
@@ -46,7 +48,11 @@ define(function(require) {
 		},
 
 		onGameRemove_: function (game) {
-			mediator.publish('socket:games-remove', game);
+			mediator.publish('socket:games-removed', game);
+		},
+
+		onGameStarted_: function () {
+			mediator.publish('socket:game-started', shape);	
 		},
 
 		onGameStart_: function(shape){

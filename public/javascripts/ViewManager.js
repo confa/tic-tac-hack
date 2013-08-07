@@ -1,20 +1,25 @@
 define(function (require){
 	'use strict';
-	var $ = require('jquery');
+	var $ = require('jquery'),
+		mediator = require('libs/mediator');
 
 	var ViewManager = function () {
 		var MenuView = $('#main-menu-container'),
 			GameView = $('#main-game-container');
 
-		$('#start-game-button').on('click', function () {
-			MenuView.hide();
-			GameView.show();
-		});
+		$('#start-game-button').on('click', showGameView);
+		$('#back-game-button').on('click', showMenuView);
+		mediator.on('socket:game-started', showGameView);
 
-		$('#back-game-button').on('click', function () {
+		function showGameView () {
+			MenuView.hide();
+			GameView.show();		
+		}
+
+		function showMenuView () {
 			MenuView.show();
-			GameView.hide();
-		});
+			GameView.hide();		
+		}
 	};
 
 	return new ViewManager();

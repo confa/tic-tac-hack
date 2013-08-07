@@ -6,7 +6,7 @@ var express = require('express'),
 	enums = require('./enums'),
 	games = new (require('./Games'))();
 
-server.listen(1414);
+server.listen(5858);
 
 app.use(express.static(__dirname + '/public'));
 

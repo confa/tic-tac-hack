@@ -126,11 +126,6 @@ body, html
 	border-radius 9px
 	margin 24px 0px
 
-
-.game-button
-	top 27px
-	background #B35151
-
 #game-over-container
 	position absolute
 	margin auto
@@ -146,7 +141,7 @@ body, html
 #right-menu-container, #player-list-container
 	float left
 	width 20%
-			
+
 #player1-name
 	display block
 
@@ -154,13 +149,35 @@ body, html
 	display none
 
 .join-button
-	background #4ECD10
-	padding 10px 0px
+	display inline-block
+	background #2ECC71
 	cursor pointer
 	height 21px
+	width 92px
 	line-height 21px
 	font-size 18px
 	color white
 	text-align center
 	border-radius 9px
-	margin 10px 0px
+	&:hover
+		background #58D68D
+
+#games-list
+	list-style none
+
+.game-list-item
+	height 30px
+	padding-top 10px
+	margin-left 10px
+	&:hover
+		background #F1F1F1
+
+.game-list-player-name, .game-list-wait-time
+	margin-right 10%
+	width 20%
+	height 100%
+	float left
+
+.game-list-player-name
+	margin-left 15px
+
