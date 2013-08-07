@@ -2,6 +2,7 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		javascripts: ['public/javascripts/*.js', 'public/javascripts/**/*.js', '!public/javascripts/libs/*.js'],
+		server_js: ['*.js'],
 		uglify: {
 			build: {
 				src: '<%= javascripts %>',
@@ -15,7 +16,8 @@ module.exports = function (grunt) {
 			}
 		},
 		jshint: {
-			all: ['Gruntfile.js', '<%= javascripts %>'],
+			client: ['Gruntfile.js', '<%= javascripts %>'],
+			server: ['<%= server_js %>'],
 			options: {
 				sub: true,
 				smarttabs: true,
@@ -26,6 +28,10 @@ module.exports = function (grunt) {
 			scripts: {
 				files: ['<%= javascripts %>'],
 				tasks: ['javascripts']
+			},
+			server_js: {
+				files: ['<%= server_js %>'],
+				tasks: ['jshint:server']
 			},
 			jade: {
 				files: ['public/index.jade'],
@@ -70,5 +76,5 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-stylus');
 
 	grunt.registerTask('default', ['jshint', 'uglify', 'concat', 'jade', 'stylus']);
-	grunt.registerTask('javascripts', ['jshint', 'uglify', 'concat']);
+	grunt.registerTask('javascripts', ['jshint:client', 'uglify', 'concat']);
 };

@@ -4,7 +4,7 @@ var express = require('express'),
 	io = require('socket.io').listen(server),
 	fs = require('fs'),
 	enums = require('./enums'),
-	games = new (require('./Games'));
+	games = new (require('./Games'))();
 
 server.listen(1414);
 
@@ -26,7 +26,7 @@ io.sockets.on('connection', function (socket) {
 		var shape = cross === true ? enums.CellStates.Zero : enums.CellStates.Cross;
 		connected++;
 		socket.emit('shape', shape);
-		console.log('connected' + connected + '. shape: ' + shape)
+		console.log('connected' + connected + '. shape: ' + shape);
 		cross = true;
 		socket.on('turn', function (data) {
 			io.sockets.emit('turn', data);
