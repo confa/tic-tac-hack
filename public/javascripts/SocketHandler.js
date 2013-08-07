@@ -14,13 +14,13 @@ define(function(require) {
 		socket.on('shape', onConnection_);
 		socket.on('denied', onDenied_);
 		socket.on('opponent:disconnected', onDisconnect_);
-		mediator.on('game:turn-local', function(data){publish_(data);});
-		mediator.on('game-controller:new', function(data){publish_(data);});
+		mediator.on('game:turn-local', function(data){publish_('turn', data);});
+		mediator.on('game-controller:new', function(data){publish_('new-game', data);});
 	}
 
-	function publish_ (data){
+	function publish_ (message, data){
 			delete data.cellDiv;
-			socket.emit('turn', data);
+			socket.emit(message, data);
 	}
 
 	function onTurn_(data){

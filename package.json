@@ -14,7 +14,8 @@
   "license": "BSD",
   "dependencies": {
     "socket.io": "~0.9.16",
-    "express": "~3.3.4"
+    "express": "~3.3.4",
+    "underscore": "~1.5.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
