@@ -19,7 +19,14 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('new-game', function (data) {
 		var game = games.add(data);
-		io.sockets.push('game-added', game);
+		io.sockets.emit('game-added', game);
+	});
+
+	socket.on('join', function (data) {
+		var game = games.join(data);
+		if (game){
+			io.sockets.emit('game-started', game);
+		}
 	});
 
 	if (connected < 1000){
@@ -33,9 +40,9 @@ io.sockets.on('connection', function (socket) {
 		});
 
 		
-		socket.on('disconnect', function(){
-			io.sockets.emit('opponent:disconnected');
-		});
+		// socket.on('disconnect', function(){
+		// 	io.sockets.emit('opponent:disconnected');
+		// });
 	} else {
 		socket.emit('denied');
 		socket.disconnect();

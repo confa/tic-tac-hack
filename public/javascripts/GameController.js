@@ -14,8 +14,6 @@ define(function(require){
 		el_.player1Name = $('#player1-name');
 		el_.player2Name = $('#player2-name');
 
-		el_.joinButtons = $('.join-button');
-
 		var names = {};
 		names.player1 = 'player 1';
 		names.player2 = 'player 2';
@@ -32,9 +30,8 @@ define(function(require){
 				if (container.val().length === 0){
 					container.val('player');
 				}  
+				names.player1 = container.val();
 			});
-
-			el_.joinButtons.on('click', onJoin_);
 		}
 
 		bindListeners_();
@@ -54,15 +51,6 @@ define(function(require){
 				mediator.publish('game-controller:new', {player1: names.player1, timestamp: new Date()});
 			}
 			new Game(options);
-		}
-
-		function onJoin_(){
-		    /*jshint validthis:true */
-			var container = $(this);
-			var id = container.data('id');
-			if (typeof id !== 'undefined'){
-
-			}
 		}
 	}
 
