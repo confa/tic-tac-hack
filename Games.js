@@ -13,7 +13,8 @@ Games.prototype.add = function(data) {
 		started: false,
 		finished: false
 	};
-	_.extend(game, data);
+	game = _.extend(game, data);
+	console.log(game);
 	this.list.push(game);
 	return game;
 };
@@ -31,8 +32,8 @@ Games.prototype.start = function(id) {
 Games.prototype.getById = function(id) {
 	var game = _.findWhere(this.list, {id: id});
 	var result;
-	if (game.length === 1){
-		result = game[0];
+	if (game !== null){
+		result = game;
 	} else {
 		result = false;
 	}
