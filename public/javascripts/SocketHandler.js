@@ -18,7 +18,6 @@ define(function(require) {
 		socket.on('game-started', listeners.onGameStarted_);
 		socket.on('denied', listeners.onDenied_);
 		socket.on('opponent:disconnected', listeners.onDisconnect_);
-		socket.on('opponent:disconnected', listeners.onDisconnect_);
 
 
 		mediator.on('game:turn-local', function(data){publish_('turn', data);});
@@ -52,7 +51,7 @@ define(function(require) {
 		},
 
 		onGameStarted_: function () {
-			mediator.publish('socket:game-started', shape);	
+			mediator.publish('socket:game-started');	
 		},
 
 		onGameStart_: function(shape){

@@ -39,7 +39,7 @@ define(function(require){
 			var container = $(this);
 			var id = container.data('id');
 			if (typeof id !== 'undefined'){
-				mediator.publish('game-list:join', id);
+				mediator.publish('game-list:join', { id:id });
 			}
 		}
 

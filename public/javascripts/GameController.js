@@ -3,6 +3,8 @@ define(function(require){
 
 	var enums = require('shared/enums'),
 		mediator = require('libs/mediator'),
+		$ = require('jquery'),
+		flat = require('libs/flat-switch'),
 		Game = require('Game'),
 		viewManager = require('ViewManager'),
 		gamesList = require('GamesList');

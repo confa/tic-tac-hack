@@ -20,7 +20,8 @@ require.config({
 	paths: {
 		jquery: 'libs/jquery.min',
 		underscore: 'libs/underscore-min',
-		socketio: '../socket.io/socket.io'
+		socketio: '../socket.io/socket.io',
+		flatUi: 'libs/flat-switch'
 	}
 
 });
