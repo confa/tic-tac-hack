@@ -17,42 +17,27 @@ io.set('log level', 0);
 
 io.sockets.on('connection', function (socket) {
 
-	socket.emit('games-list', games.list);
+	socket.emit('games-list', games.getPending());
 
 	socket.on('new-game', function (data) {
-		console.log('new-game received');
 		var game = games.add(data);
 		io.sockets.emit('game-added', game);
-		console.log('game-added emitted');
+		socket.join('game-' + game.id);
 	});
 
 	socket.on('join', function (data) {
 		var game = games.join(data);
-		console.log('join received');
 
 		if (game){
-			socket.emit('game-started', game);
+			var roomName = 'game-' + game.id;
 			io.sockets.emit('game-removed', game);
-			console.log('game-started&game-removed emitted');
+			socket.join(roomName);
+			socket.in(roomName).emit('game-started', game);
 		}
 	});
 
-	if (connected < 1000){
-		var shape = cross === true ? enums.CellStates.Zero : enums.CellStates.Cross;
-		connected++;
-		socket.emit('shape', shape);
-		console.log('connected' + connected + '. shape: ' + shape);
-		cross = true;
-		socket.on('turn', function (data) {
-			io.sockets.emit('turn', data);
-		});
-
-		
-		// socket.on('disconnect', function(){
-		// 	io.sockets.emit('opponent:disconnected');
-		// });
-	} else {
-		socket.emit('denied');
-		socket.disconnect();
-	}
+	socket.on('turn', function(data){
+		var roomName = io.sockets.manager.roomClinents[socket.id][1];
+		io.sockets.in('game-' + roomName).emit('turn', data);
+	});
 });

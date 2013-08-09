@@ -37,8 +37,8 @@ define(function(require){
 
 		$(document).on('click', '.join-button', onJoin_);
 		mediator.on('socket:games-list', onGamesList_);
-		mediator.on('socket:games-added', onGameAdd_);
-		mediator.on('socket:games-removed', onGameRemoved_);
+		mediator.on('socket:game-added', onGameAdd_);
+		mediator.on('socket:game-removed', onGameRemoved_);
 
 		function onJoin_(){
 			/*jshint validthis:true */
@@ -64,8 +64,9 @@ define(function(require){
 		}
 
 		function onGameRemoved_(game){
-			var index = _.indexOf(self.list, game);
-			if (index !== -1){
+			var index = _.findWhere(self.list, {id: game.id});
+			if (typeof index !== 'undefined'){
+				index = index.id;
 				$('.join-button[data-id="' +  index + '"]').parent().remove();
 				self.list.splice(index, 1);
 			}

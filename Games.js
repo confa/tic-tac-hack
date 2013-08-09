@@ -14,7 +14,6 @@ Games.prototype.add = function(data) {
 		finished: false
 	};
 	game = _.extend(game, data);
-	console.log(game);
 	this.list.push(game);
 	return game;
 };

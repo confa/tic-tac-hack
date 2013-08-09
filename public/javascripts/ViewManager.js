@@ -7,7 +7,7 @@ define(function (require){
 		var MenuView = $('#main-menu-container'),
 			GameView = $('#main-game-container');
 
-		$('#start-game-button').on('click', showGameView);
+		// $('#start-game-button').on('click', showGameView);
 		$('#back-game-button').on('click', showMenuView);
 		mediator.on('socket:game-started', showGameView);
 

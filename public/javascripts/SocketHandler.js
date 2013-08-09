@@ -15,7 +15,7 @@ define(function(require) {
 
 		mediator.on('game:turn-local', function(data){
 			delete data.cellDiv;
-			self.socket.emit(turn, data);
+			self.socket.emit('turn', data);
 		});
 
 	}
@@ -27,8 +27,8 @@ define(function(require) {
 	socketHandler.in({
 		'turn': 'socket:turn-network',
 		'games-list': 'socket:games-list',
-		'game-added': 'socket:games-added',
-		'games-removed': 'socket:games-removed',
+		'game-added': 'socket:game-added',
+		'game-removed': 'socket:game-removed',
 		'game-started': 'socket:game-started',
 		'denied': 'socket:denied',
 		'opponent:disconnected': 'socket:disconnected'
