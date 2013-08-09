@@ -21,11 +21,17 @@ define(function(require){
 			_.each(list, function (it) {
 				var item = $(it);
 				var seconds = item.data('time');
-				var minutes = utils.prependZero(Math.floor(seconds / 60), 2);
-				seconds = utils.prependZero(seconds - minutes * 60, 2);
-
-				item.text(minutes + ':' + seconds);
 				item.data('time', ++seconds);
+				var minutes = utils.prependZero(Math.floor(seconds / 60), 2);
+				var hours = utils.prependZero(Math.floor(minutes / 60), 2);
+
+				seconds %= 60;
+				seconds = utils.prependZero(seconds, 2);
+
+				minutes %= 60;
+				minutes = utils.prependZero(minutes, 2);
+
+				item.text(hours + ':' + minutes + ':' + seconds);
 			});
 		}, 1000);
 

@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 				tasks: ['jshint:server']
 			},
 			jade: {
-				files: ['public/index.jade'],
+				files: ['public/index.jade', 'public/templates/*.jade'],
 				tasks: ['jade']
 			},
 			styles: {

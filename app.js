@@ -13,19 +13,27 @@ app.use(express.static(__dirname + '/public'));
 var cross = false,
 	connected = 0;
 
+io.set('log level', 0);
+
 io.sockets.on('connection', function (socket) {
 
 	socket.emit('games-list', games.list);
 
 	socket.on('new-game', function (data) {
+		console.log('new-game received');
 		var game = games.add(data);
 		io.sockets.emit('game-added', game);
+		console.log('game-added emitted');
 	});
 
 	socket.on('join', function (data) {
 		var game = games.join(data);
+		console.log('join received');
+
 		if (game){
-			io.sockets.emit('game-started', game);
+			socket.emit('game-started', game);
+			io.sockets.emit('game-removed', game);
+			console.log('game-started&game-removed emitted');
 		}
 	});
 
