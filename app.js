@@ -6,7 +6,7 @@ var express = require('express'),
 	enums = require('./enums'),
 	games = new (require('./Games'))();
 
-server.listen(5858);
+server.listen(1414);
 
 app.use(express.static(__dirname + '/public'));
 
@@ -32,7 +32,7 @@ io.sockets.on('connection', function (socket) {
 			var roomName = 'game-' + game.id;
 			io.sockets.emit('game-removed', game);
 			socket.join(roomName);
-			socket.in(roomName).emit('game-started', game);
+			io.sockets.in(roomName).emit('game-started', game);
 		}
 	});
 

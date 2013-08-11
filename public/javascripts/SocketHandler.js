@@ -11,7 +11,7 @@ define(function(require) {
 	var self;
 	function SocketHandler() {
 		self = this;
-		this.socket = io.connect('http://localhost:5858');
+		this.socket = io.connect('http://localhost:1414');
 
 		mediator.on('game:turn-local', function(data){
 			delete data.cellDiv;
