@@ -21,7 +21,7 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('new-game', function (data) {
 		var game = games.add(data);
-		io.sockets.emit('game-added', game);
+		socket.broadcast.emit('game-added', game);
 		socket.join('game-' + game.id);
 	});
 

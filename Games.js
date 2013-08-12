@@ -21,7 +21,7 @@ Games.prototype.add = function(data) {
 Games.prototype.start = function(id) {
 	var game = this.getById(id);
 	if (game){
-		started = true;
+		game.started = true;
 		return game;
 	} else{
 		return false;

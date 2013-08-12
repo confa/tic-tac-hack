@@ -14,6 +14,8 @@ define(function(require){
 		el_.gamesList = $('#games-list');
 		el_.gameTemplate = $('#game-in-list-template');
 
+		bindListeners_();
+
 		var templateCompiled = _.template(el_.gameTemplate.html());
 		var list = $('.game-list-wait-time');
 
@@ -45,7 +47,7 @@ define(function(require){
 			var container = $(this);
 			var id = container.data('id');
 			if (typeof id !== 'undefined'){
-				mediator.publish('game-list:join', { id:id });
+				mediator.publish('game-list:join', { id: id, name: self.playerName});
 			}
 		}
 
@@ -70,6 +72,12 @@ define(function(require){
 				$('.join-button[data-id="' +  index + '"]').parent().remove();
 				self.list.splice(index, 1);
 			}
+		}
+
+		function bindListeners_(){
+			mediator.on('game=-controller:player1', function(name){
+				self.playerName = name;
+			});
 		}
 	}
 

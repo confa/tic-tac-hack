@@ -4,7 +4,6 @@ define(function(require){
 	var enums = require('shared/enums'),
 		mediator = require('libs/mediator'),
 		$ = require('jquery'),
-		// flat = require('libs/flat-switch'),
 		Game = require('Game'),
 		viewManager = require('ViewManager'),
 		switchControl = require('libs/switch'),
@@ -23,6 +22,7 @@ define(function(require){
 		var names = {};
 		names.player1 = 'player 1';
 		names.player2 = 'player 2';
+		mediator.publish('game-controller:player1', names.player1);
 
 		function bindListeners_(){
 			el_.switchButton.on('change', onSwitch_);
@@ -38,6 +38,7 @@ define(function(require){
 					container.val('player');
 				}  
 				names.player1 = container.val();
+				mediator.publish('game-controller:player1', names.player1);
 			});
 		}
 
