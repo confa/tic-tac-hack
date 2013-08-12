@@ -11,9 +11,15 @@ define(function(require) {
 		var self = this,
 			isLocal_ = options.isLocal,
 			el_ = {};
+
+		$('#player1-game-label').text(options.player1);
+		$('#player2-game-label').text(options.player2);
+
 		el_.gameCells = $('.game-cell');
 		el_.gameFields = $('.game-field');
 		el_.gameOverLayer = $('#game-over-container');
+		el_.crossTurnIcon = $('#cross-game-current-turn');
+		el_.zeroTurnIcon = $('#zero-game-current-turn');
 
 		initializeGame();
 		
@@ -65,6 +71,7 @@ define(function(require) {
 
 			self.currentPlayer = enums.CellStates.Cross;
 			self.turnAllowed = true;
+
 			mediator.on('socket:shape',function(shape){
 				self.currentPlayer = shape;
 				self.turnAllowed = shape === enums.CellStates.Cross;
@@ -75,8 +82,12 @@ define(function(require) {
 			if (isLocal_){
 				if(self.currentPlayer === enums.CellStates.Cross) {
 					self.currentPlayer = enums.CellStates.Zero;
+					el_.crossTurnIcon.toggleClass('active', false);
+					el_.zeroTurnIcon.toggleClass('active', true);
 				} else {
 					self.currentPlayer = enums.CellStates.Cross;
+					el_.crossTurnIcon.toggleClass('active', true);
+					el_.zeroTurnIcon.toggleClass('active', false);
 				}
 			}
 		}

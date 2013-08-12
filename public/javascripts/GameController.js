@@ -36,9 +36,15 @@ define(function(require){
 				var container = $(this);
 				if (container.val().length === 0){
 					container.val('player');
-				}  
-				names.player1 = container.val();
-				mediator.publish('game-controller:player1', names.player1);
+				}
+
+				if (this === el_.player1Name.get(0)) {
+					names.player1 = container.val();
+					mediator.publish('game-controller:player1', names.player1);
+				} else if (this === el_.player2Name.get(0)) {
+					names.player2 = container.val();
+					mediator.publish('game-controller:player2', names.player2);
+				}				
 			});
 		}
 
@@ -53,7 +59,9 @@ define(function(require){
 
 		function newGame_(){
 			var options = {
-				isLocal: localGame_
+				isLocal: localGame_,
+				player1: names.player1,
+				player2: names.player2
 			};
 			if (!localGame_){
 				mediator.publish('game-controller:new-network', {player1: names.player1, timestamp: new Date()});

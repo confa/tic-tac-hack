@@ -75,7 +75,7 @@ define(function(require){
 		}
 
 		function bindListeners_(){
-			mediator.on('game=-controller:player1', function(name){
+			mediator.on('game-controller:player1', function(name){
 				self.playerName = name;
 			});
 		}

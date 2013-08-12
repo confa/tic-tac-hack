@@ -33,7 +33,16 @@ html
 						div(class="global-game-cell", data-field = i)
 						- }	
 
-				#buttons-container
+				.player-game-info
+					#cross-game-current-turn.active
+						.cross-cell
+					label#player1-game-label player 1 name
+				.player-game-info
+					#zero-game-current-turn
+						.zero-cell
+					label#player2-game-label player 2 name
+
+				#back-button-container
 					#back-game-button.game-button Back
 
 		include templates/game-in-list-template
