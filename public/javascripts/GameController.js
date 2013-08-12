@@ -55,7 +55,9 @@ define(function(require){
 				isLocal: localGame_
 			};
 			if (!localGame_){
-				mediator.publish('game-controller:new', {player1: names.player1, timestamp: new Date()});
+				mediator.publish('game-controller:new-network', {player1: names.player1, timestamp: new Date()});
+			} else {
+				mediator.publish('game-controller:new-local', {player1: names.player1, player2: names.player2});
 			}
 			new Game(options);
 		}

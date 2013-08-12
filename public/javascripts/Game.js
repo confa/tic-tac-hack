@@ -16,6 +16,10 @@ define(function(require) {
 		el_.gameOverLayer = $('#game-over-container');
 
 		initializeGame();
+		
+		if(!isLocal_) {
+			initializeSubscriptions();
+		}
 
 		el_.gameCells.on('click', onCellClick_);
 
@@ -49,8 +53,6 @@ define(function(require) {
 			}
 		};
 
-		initializeSubscriptions();
-
 		function initializeGame(){
 			self.fieldGrid = [];
 			self.availableField = undefined;
@@ -67,7 +69,6 @@ define(function(require) {
 				self.currentPlayer = shape;
 				self.turnAllowed = shape === enums.CellStates.Cross;
 			});
-
 		}
 
 		function switchPlayer() {

@@ -37,7 +37,7 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('turn', function(data){
-		var roomName = io.sockets.manager.roomClinents[socket.id][1];
+		var roomName = io.sockets.manager.roomClients[socket.id][1];
 		io.sockets.in('game-' + roomName).emit('turn', data);
 	});
 });

@@ -17,14 +17,14 @@ define(function(require) {
 			delete data.cellDiv;
 			self.socket.emit('turn', data);
 		});
-
 	}
-	SocketHandler.prototype = _.extend(SocketHandler.prototype, Sockiator.prototype);
 
+	SocketHandler.prototype = _.extend(SocketHandler.prototype, Sockiator.prototype);
 
 	var socketHandler = new SocketHandler();
 
-	socketHandler.in({
+	socketHandler
+	.in({
 		'turn': 'socket:turn-network',
 		'games-list': 'socket:games-list',
 		'game-added': 'socket:game-added',

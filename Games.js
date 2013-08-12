@@ -31,7 +31,7 @@ Games.prototype.start = function(id) {
 Games.prototype.getById = function(id) {
 	var game = _.findWhere(this.list, {id: id});
 	var result;
-	if (game !== null){
+	if (typeof game !== 'undefined'){
 		result = game;
 	} else {
 		result = false;
@@ -45,9 +45,14 @@ Games.prototype.getPending = function() {
 
 Games.prototype.join = function(data) {
 	var game = this.getById(data.id);
+	console.log('join data:');
+	console.log(data);
+	console.log(this.list);
+	console.log('game data');
+	console.log(game);
 	if (game){
 		if (!game.full){
-			game.player2Name = data.playerName;
+			game.player2Name = 'data.playerName';
 			game.full = true;
 			game = this.start(data.id);
 			return game;

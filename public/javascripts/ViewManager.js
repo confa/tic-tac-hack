@@ -10,6 +10,7 @@ define(function (require){
 		// $('#start-game-button').on('click', showGameView);
 		$('#back-game-button').on('click', showMenuView);
 		mediator.on('socket:game-started', showGameView);
+		mediator.on('game-controller:new-local', showGameView);
 
 		function showGameView () {
 			MenuView.hide();
