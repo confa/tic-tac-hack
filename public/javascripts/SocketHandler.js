@@ -11,7 +11,7 @@ define(function(require) {
 	var self;
 	function SocketHandler() {
 		self = this;
-		this.socket = io.connect('http://localhost/tictachack');
+		this.socket = io.connect('http://localhost:1414');
 
 		mediator.on('game:turn-local', function(data){
 			delete data.cellDiv;
@@ -34,7 +34,7 @@ define(function(require) {
 		'opponent:disconnected': 'socket:disconnected'
 	})
 	.out({
-		'game-controller:new':'new-game',
+		'game-controller:new-network':'new-game',
 		'game-list:join':'join'
 	});
 
