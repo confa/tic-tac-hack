@@ -13,8 +13,8 @@ html
 						input(type='checkbox', checked='', data-toggle='switch')
 
 				#start-game-button.game-button Start Game
-				input#player1-name.player-name(type="text", value="player 1")
-				input#player2-name.player-name(type="text", value="player 2")
+				input#player-name.player-name(type="text", value="player 1")
+				input#rival-name.player-name(type="text", value="player 2")
 
 		#main-game-container
 			#game-over-container GAME OVER
@@ -36,11 +36,11 @@ html
 				.player-game-info
 					#cross-game-current-turn.active
 						.cross-cell
-					label#player1-game-label player 1 name
+					label#player-game-label player 1 name
 				.player-game-info
 					#zero-game-current-turn
 						.zero-cell
-					label#player2-game-label player 2 name
+					label#rival-game-label player 2 name
 
 				#back-button-container
 					#back-game-button.game-button Back

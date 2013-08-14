@@ -12,9 +12,6 @@ define(function(require) {
 			isLocal_ = options.isLocal,
 			el_ = {};
 
-		$('#player1-game-label').text(options.player1);
-		$('#player2-game-label').text(options.player2);
-
 		el_.gameCells = $('.game-cell');
 		el_.gameFields = $('.game-field');
 		el_.gameOverLayer = $('#game-over-container');

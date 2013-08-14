@@ -45,11 +45,6 @@ Games.prototype.getPending = function() {
 
 Games.prototype.join = function(data) {
 	var game = this.getById(data.id);
-	console.log('join data:');
-	console.log(data);
-	console.log(this.list);
-	console.log('game data');
-	console.log(game);
 	if (game){
 		if (!game.full){
 			game.player2Name = 'data.playerName';

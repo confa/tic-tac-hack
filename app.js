@@ -32,6 +32,7 @@ io.sockets.on('connection', function (socket) {
 			var roomName = 'game-' + game.id;
 			io.sockets.emit('game-removed', game);
 			socket.join(roomName);
+			game.currentTurn = enums.CellsState.Cross;
 			io.sockets.in(roomName).emit('game-started', game);
 		}
 	});

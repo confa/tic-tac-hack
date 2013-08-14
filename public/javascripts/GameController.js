@@ -7,68 +7,45 @@ define(function(require){
 		Game = require('Game'),
 		viewManager = require('ViewManager'),
 		switchControl = require('libs/switch'),
-		gamesList = require('GamesList');
+		gamesList = require('GamesList'),
+		playerController = require('PlayerController');
 
 	function GameController(){
 
-		$.fn.switchButton = switchControl;
-		$('.switch').switchButton('NET', 'LOCAL');
 		var el_ = {};
 		el_.switchButton = $('#local-network-switcher');
 		el_.newGameButton = $('#start-game-button');
-		el_.player1Name = $('#player1-name');
-		el_.player2Name = $('#player2-name');
+		el_.switch = $('.switch');
+		el_.rivalName = $('#rival-name');
 
-		var names = {};
-		names.player1 = 'player 1';
-		names.player2 = 'player 2';
-		mediator.publish('game-controller:player1', names.player1);
+		$.fn.switchButton = switchControl;
+		el_.switch.switchButton('NET', 'LOCAL');
 
-		function bindListeners_(){
-			el_.switchButton.on('change', onSwitch_);
-			el_.newGameButton.on('click', newGame_);
-			
-			$('.player-name').on('focus', function(){
-				var container = $(this);
-				container.val('');
-			});
-			$('.player-name').on('blur', function(){
-				var container = $(this);
-				if (container.val().length === 0){
-					container.val('player');
-				}
-
-				if (this === el_.player1Name.get(0)) {
-					names.player1 = container.val();
-					mediator.publish('game-controller:player1', names.player1);
-				} else if (this === el_.player2Name.get(0)) {
-					names.player2 = container.val();
-					mediator.publish('game-controller:player2', names.player2);
-				}				
-			});
-		}
-
-		bindListeners_();
+		el_.newGameButton.on('click', newGame_);
+		el_.switchButton.on('change', onSwitch_);
 
 		var localGame_ = false;
 
-		function onSwitch_(item){
-			localGame_ = !localGame_;
-			el_.player2Name.toggle();
-		} 
-
 		function newGame_(){
+
+			var names = playerController.getPlayerNames();
+
 			var options = {
 				isLocal: localGame_,
-				player1: names.player1,
-				player2: names.player2
+				player: names.player,
+				rival: names.rival
 			};
 			if (!localGame_){
-				mediator.publish('game-controller:new-network', {player1: names.player1, timestamp: new Date()});
+				mediator.publish('game-controller:new-network', {player: names.player, timestamp: new Date()});
 			} else {
-				mediator.publish('game-controller:new-local', {player1: names.player1, player2: names.player2});
+				mediator.publish('game-controller:new-local', {player: names.player, rival: names.rival});
 			}
 			new Game(options);
+		}
+
+		function onSwitch_(item){
+			localGame_ = !localGame_;
+			el_.rivalName.toggle();
 		}
 	}
 
