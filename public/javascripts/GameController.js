@@ -15,11 +15,10 @@ define(function(require){
 		var el_ = {};
 		el_.switchButton = $('#local-network-switcher');
 		el_.newGameButton = $('#start-game-button');
-		el_.switch = $('.switch');
 		el_.rivalName = $('#rival-name');
 
 		$.fn.switchButton = switchControl;
-		el_.switch.switchButton('NET', 'LOCAL');
+		el_.switchButton.switchButton('NET', 'LOCAL');
 
 		el_.newGameButton.on('click', newGame_);
 		el_.switchButton.on('change', onSwitch_);
@@ -36,9 +35,9 @@ define(function(require){
 				rival: names.rival
 			};
 			if (!localGame_){
-				mediator.publish('game-controller:new-network', {player: names.player, timestamp: new Date()});
+				mediator.publish('game-controller:new', {player: names.player, timestamp: new Date()});
 			} else {
-				mediator.publish('game-controller:new-local', {player: names.player, rival: names.rival});
+				mediator.publish('game-controller:new', {player: names.player, rival: names.rival});
 			}
 			new Game(options);
 		}

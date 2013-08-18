@@ -11,6 +11,7 @@ define(function(require){
 		this.list = [];
 		
 		var el_ = {};
+		el_.gamesListContainer = $('#player-list-container');
 		el_.gamesList = $('#games-list');
 		el_.gameTemplate = $('#game-in-list-template');
 
@@ -77,6 +78,10 @@ define(function(require){
 		function bindListeners_(){
 			mediator.on('player-controller:player', function(name){
 				self.playerName = name;
+			});
+
+			mediator.on('game-controller:mode', function(isLocalGame){
+				el_.gamesListContainer.toggle();
 			});
 		}
 	}

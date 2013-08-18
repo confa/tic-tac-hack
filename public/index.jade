@@ -5,16 +5,16 @@ html
 		link(rel="stylesheet", href="./publish/css.css")
 	body
 		#main-menu-container
-			#player-list-container
-				ul#games-list
-			#right-menu-container
+			#game-menu-container
 				#buttons-container
 					#local-network-switcher.switch.has-switch
 						input(type='checkbox', checked='', data-toggle='switch')
 
 				#start-game-button.game-button Start Game
-				input#player-name.player-name(type="text", value="player 1")
-				input#rival-name.player-name(type="text", value="player 2")
+				input#player-name.player-name(type="text", value="player")
+				input#rival-name.player-name(type="text", value="player")
+			#player-list-container
+				ul#games-list
 
 		#main-game-container
 			#game-over-container GAME OVER
