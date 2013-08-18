@@ -65,7 +65,7 @@ module.exports = function (grunt) {
 					'public/publish/css.css': ['public/stylesheets/*.styl']
 				}
 			}
-		},
+		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-uglify');

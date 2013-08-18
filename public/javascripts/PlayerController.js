@@ -14,10 +14,14 @@ define(function(require) {
 		var names = {};
 		names.player = 'player 1';
 		names.rival = 'player 2';
-		mediator.publish('game-controller:player', names.player);
+		mediator.publish('player-controller:player', names.player);
 
 		function bindListeners_(){			
 						
+			mediator.on('game-controller:mode', function(isLocalGame){
+				el_.rivalName.toggle();
+			});
+
 			$('.player-name').on('focus', function(){
 				var container = $(this);
 				container.val('');
@@ -31,19 +35,19 @@ define(function(require) {
 
 				if (this === el_.playerName.get(0)) {
 					names.player = container.val();
-					mediator.publish('game-controller:player', names.player);
+					mediator.publish('player-controller:player', names.player);
 					el_.playerGameLabel.text(names.player);
 				} else if (this === el_.rivalName.get(0)) {
 					names.rival = container.val();
-					mediator.publish('game-controller:rival', names.rival);
+					mediator.publish('player-controller:rival', names.rival);
 					el_.rivalGameLabel.text(names.rival);
 				}				
 			});
 		}
 
 		this.getPlayerNames = function () {
-			return names;
-		}
+			return _.clone(names);
+		};
 
 		bindListeners_();
 	}

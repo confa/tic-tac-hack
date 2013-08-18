@@ -45,7 +45,7 @@ define(function(require){
 
 		function onSwitch_(item){
 			localGame_ = !localGame_;
-			el_.rivalName.toggle();
+			mediator.publish('game-controller:mode', localGame_);
 		}
 	}
 

@@ -23,7 +23,6 @@ require.config({
 		socketio: '../socket.io/socket.io',
 		flatUi: 'libs/flat-switch'
 	}
-
 });
 
 require(['GameController', 'SocketHandler']);
