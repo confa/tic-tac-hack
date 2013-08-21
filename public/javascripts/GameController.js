@@ -23,10 +23,22 @@ define(function(require){
 		el_.newGameButton.on('click', newGame_);
 		el_.switchButton.on('change', onSwitch_);
 
+		mediator.subscribe('socket:game-started', onGameStarted_);
+
 		var localGame_ = false;
 
 		function newGame_(){
+			var names = playerController.getPlayerNames();
+			
+			if (!localGame_){
+				mediator.publish('game-controller:new', {player: names.player, timestamp: new Date()});
+			} else {
+				mediator.publish('game-controller:new', {player: names.player, rival: names.rival});
+				onGameStarted_();
+			}
+		}
 
+		function onGameStarted_(){
 			var names = playerController.getPlayerNames();
 
 			var options = {
@@ -34,11 +46,6 @@ define(function(require){
 				player: names.player,
 				rival: names.rival
 			};
-			if (!localGame_){
-				mediator.publish('game-controller:new', {player: names.player, timestamp: new Date()});
-			} else {
-				mediator.publish('game-controller:new', {player: names.player, rival: names.rival});
-			}
 			new Game(options);
 		}
 

@@ -1,3 +1,8 @@
+//
+//    Sockiator is a proxy that redirects mediator events to socket.io and vice versa 
+//    in hash contains socket -> mediator events
+//    out hash contains mediator -> socket events
+//    
 define(function(require){
 	'use strict';
 

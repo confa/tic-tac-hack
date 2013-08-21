@@ -19,10 +19,6 @@ define(function(require) {
 		el_.zeroTurnIcon = $('#zero-game-current-turn');
 
 		initializeGame();
-		
-		if(!isLocal_) {
-			initializeSubscriptions();
-		}
 
 		el_.gameCells.on('click', onCellClick_);
 
@@ -55,6 +51,10 @@ define(function(require) {
 				self.turnAllowed = !self.turnAllowed;
 			}
 		};
+		
+		if(!isLocal_) {
+			initializeSubscriptions();
+		}
 
 		function initializeGame(){
 			self.fieldGrid = [];

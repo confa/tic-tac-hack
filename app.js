@@ -32,13 +32,22 @@ io.sockets.on('connection', function (socket) {
 			var roomName = 'game-' + game.id;
 			io.sockets.emit('game-removed', game);
 			socket.join(roomName);
-			game.currentTurn = enums.CellsState.Cross;
+			game.currentTurn = enums.CellStates.Cross;
 			io.sockets.in(roomName).emit('game-started', game);
 		}
 	});
 
 	socket.on('turn', function(data){
-		var roomName = io.sockets.manager.roomClients[socket.id][1];
-		io.sockets.in('game-' + roomName).emit('turn', data);
+		var rooms = io.sockets.manager.roomClients[socket.id];
+		var roomName;
+		for (var i in rooms){ 
+			if (i !== ''){
+				roomName = i.substring(1);
+				break;
+			}
+		}
+		if (typeof roomName !== 'undefined'){
+			io.sockets.in(roomName).emit('turn', data);
+		}
 	});
 });

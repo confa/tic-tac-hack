@@ -24,19 +24,19 @@ define(function(require) {
 	var socketHandler = new SocketHandler();
 
 	socketHandler
-	.in({
-		'turn': 'socket:turn-network',
-		'games-list': 'socket:games-list',
-		'game-added': 'socket:game-added',
-		'game-removed': 'socket:game-removed',
-		'game-started': 'socket:game-started',
-		'denied': 'socket:denied',
-		'opponent:disconnected': 'socket:disconnected'
-	})
-	.out({
-		'game-controller:new-network':'new-game',
-		'game-list:join':'join'
-	});
+		.in({
+			'turn': 'socket:turn-network',
+			'games-list': 'socket:games-list',
+			'game-added': 'socket:game-added',
+			'game-removed': 'socket:game-removed',
+			'game-started': 'socket:game-started',
+			'denied': 'socket:denied',
+			'opponent:disconnected': 'socket:disconnected'
+		})
+		.out({
+			'game-controller:new':'new-game',
+			'game-list:join':'join'
+		});
 
 	return socketHandler;
 });
