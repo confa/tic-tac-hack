@@ -4,6 +4,7 @@ var express = require('express'),
 	io = require('socket.io').listen(server),
 	fs = require('fs'),
 	enums = require('./enums'),
+	_ = require('underscore'),
 	games = new (require('./Games'))();
 
 server.listen(1414);
@@ -32,8 +33,13 @@ io.sockets.on('connection', function (socket) {
 			var roomName = 'game-' + game.id;
 			io.sockets.emit('game-removed', game);
 			socket.join(roomName);
-			game.currentTurn = enums.CellStates.Cross;
-			io.sockets.in(roomName).emit('game-started', game);
+
+			var participants = io.sockets.in(roomName).sockets;
+			var participantsIds = _.keys(participants); 
+			game.currentTurn = Math.floor(Math.random() * 2);
+			participants[participantsIds[0]].emit('game-started', game);
+			game.currentTurn = +!game.currentTurn;
+			participants[participantsIds[1]].emit('game-started', game);
 		}
 	});
 

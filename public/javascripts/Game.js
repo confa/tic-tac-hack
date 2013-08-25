@@ -18,7 +18,7 @@ define(function(require) {
 		el_.crossTurnIcon = $('#cross-game-current-turn');
 		el_.zeroTurnIcon = $('#zero-game-current-turn');
 
-		initializeGame();
+		initializeGame(options);
 
 		el_.gameCells.on('click', onCellClick_);
 
@@ -56,7 +56,7 @@ define(function(require) {
 			initializeSubscriptions();
 		}
 
-		function initializeGame(){
+		function initializeGame(options){
 			self.fieldGrid = [];
 			self.availableField = undefined;
 
@@ -66,13 +66,8 @@ define(function(require) {
 
 			self.globalField = new Field(++i);
 
-			self.currentPlayer = enums.CellStates.Cross;
-			self.turnAllowed = true;
-
-			mediator.on('socket:shape',function(shape){
-				self.currentPlayer = shape;
-				self.turnAllowed = shape === enums.CellStates.Cross;
-			});
+			self.currentPlayer = options.shape;
+			self.turnAllowed = self.currentPlayer === options.turn;
 		}
 
 		function switchPlayer() {

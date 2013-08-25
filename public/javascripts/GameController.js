@@ -25,6 +25,7 @@ define(function(require){
 
 		mediator.subscribe('socket:game-started', onGameStarted_);
 
+		var shape = enums.CellStates.Zero;
 		var localGame_ = false;
 
 		function newGame_(){
@@ -32,19 +33,22 @@ define(function(require){
 			
 			if (!localGame_){
 				mediator.publish('game-controller:new', {player: names.player, timestamp: new Date()});
+				shape = enums.CellStates.Cross;
 			} else {
 				mediator.publish('game-controller:new', {player: names.player, rival: names.rival});
 				onGameStarted_();
 			}
 		}
 
-		function onGameStarted_(){
+		function onGameStarted_(data){
 			var names = playerController.getPlayerNames();
 
 			var options = {
 				isLocal: localGame_,
 				player: names.player,
-				rival: names.rival
+				rival: names.rival,
+				shape: shape,
+				turn: data ? data.currentTurn : enums.CellStates.Cross //Math.floor(Math.random() * 2);
 			};
 			new Game(options);
 		}
