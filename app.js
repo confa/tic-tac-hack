@@ -36,9 +36,9 @@ io.sockets.on('connection', function (socket) {
 
 			var participants = io.sockets.in(roomName).sockets;
 			var participantsIds = _.keys(participants); 
-			game.currentTurn = Math.floor(Math.random() * 2);
+			game.shape = Math.floor(Math.random() * 2);
 			participants[participantsIds[0]].emit('game-started', game);
-			game.currentTurn = +!game.currentTurn;
+			game.shape = +!game.shape;
 			participants[participantsIds[1]].emit('game-started', game);
 		}
 	});
