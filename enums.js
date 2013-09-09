@@ -1,7 +1,7 @@
 module.exports = {
 	CellStates :{
-		Empty: 0,
+		Zero: 0,
 		Cross: 1,
-		Zero: 2
+		Empty: 2
 	}
 };

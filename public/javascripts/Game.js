@@ -67,7 +67,7 @@ define(function(require) {
 			self.globalField = new Field(++i);
 
 			self.currentPlayer = options.shape;
-			self.turnAllowed = self.currentPlayer === options.turn;
+			self.turnAllowed = self.currentPlayer === enums.CellStates.Cross;
 		}
 
 		function switchPlayer() {
