@@ -47,7 +47,7 @@ Games.prototype.join = function(data) {
 	var game = this.getById(data.id);
 	if (game){
 		if (!game.full){
-			game.player2 = data.playerName;
+			game.player2 = data.name;
 			game.full = true;
 			game = this.start(data.id);
 			return game;

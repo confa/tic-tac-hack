@@ -8,7 +8,7 @@ define(function(require){
 		viewManager = require('ViewManager'),
 		switchControl = require('libs/switch'),
 		gamesList = require('GamesList'),
-		playerController = require('PlayerController');
+		PlayerController = require('PlayerController');
 
 	function GameController(){
 
@@ -28,8 +28,10 @@ define(function(require){
 		var shape = enums.CellStates.Zero;
 		var localGame_ = false;
 
+		var playerController_ = new PlayerController();
+
 		function newGame_(){
-			var names = playerController.getPlayerNames();
+			var names = playerController_.getPlayerNames();
 			
 			if (!localGame_){
 				mediator.publish('game-controller:new', {player: names.player, timestamp: new Date()});
@@ -41,7 +43,7 @@ define(function(require){
 		}
 
 		function onGameStarted_(data){
-			var names = playerController.getPlayerNames();
+			var names = playerController_.getPlayerNames();
 
 			var options = {
 				isLocal: localGame_,
