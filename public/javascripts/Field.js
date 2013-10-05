@@ -79,7 +79,7 @@ define(function(require) {
 				var currentState = this.cellsArray[i].getState();
 				var seria = true;
 				
-				if(currentState === 0)
+				if(currentState === 2)
 					seria = false;
 
 				for(var j = i; j < i + this.dimensions && seria; j++) {
@@ -103,7 +103,7 @@ define(function(require) {
 				var currentState = this.cellsArray[i].getState();
 				var seria = true;
 				
-				if(currentState === 0)
+				if(currentState === 2)
 					seria = false;
 
 				for(var j = i; j < this.cellsArray.length && seria; j+=this.dimensions) {
@@ -126,7 +126,7 @@ define(function(require) {
 			var currentState = this.cellsArray[last].getState();
 			var seria = true;
 
-			if(currentState === 0)
+			if(currentState === 2)
 				seria = false;
 
 			for (var i = last; i >= 0; i-=(this.dimensions + 1)) {
@@ -147,7 +147,7 @@ define(function(require) {
 			var currentState = this.cellsArray[this.dimensions-1].getState();
 			var seria = true;
 
-			if(currentState === 0)
+			if(currentState === 2)
 				seria = false;
 
 			for (var i = this.dimensions-1; i < this.cellsArray.length-1; i+=(this.dimensions - 1)) {

@@ -41,7 +41,7 @@ define(function(require) {
 
 			$(".game-field-{0}".format(options.cell)).addClass('current-field');
 
-			self.fieldGrid[options.field].toggleStateByNumber(options.cell, self.currentPlayer);
+			self.fieldGrid[options.field].toggleStateByNumber(options.cell, !isLocal_ ? options.player : self.currentPlayer);
 			var winner = determineLocalWinner_(options.field);	
 			
 			switchPlayer();

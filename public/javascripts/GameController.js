@@ -50,7 +50,7 @@ define(function(require){
 				player: names.player,
 				rival: names.rival,
 				shape: shape,
-				turn: data ? data.currentTurn : enums.CellStates.Cross //Math.floor(Math.random() * 2);
+				turn: data ? data.currentTurn : enums.CellStates.Cross
 			};
 			new Game(options);
 		}

@@ -3,7 +3,7 @@ define(function(require) {
 
 	function Cell (number) {
 
-		var _state = 0,
+		var _state = 2,
 			_number = 0,
 			_self = this;
 
@@ -12,7 +12,7 @@ define(function(require) {
 		}
 
 		this.toggleState = function (state) {
-			if(typeof state === 'number' && state > 0 && state <= 3) {
+			if(typeof state === 'number' && state === 0 || state === 1) {
 				_state = state;
 			}
 		};
