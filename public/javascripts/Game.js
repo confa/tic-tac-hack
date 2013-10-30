@@ -17,6 +17,7 @@ define(function(require) {
 		el_.gameOverLayer = $('#game-over-container');
 		el_.crossTurnIcon = $('#cross-game-current-turn');
 		el_.zeroTurnIcon = $('#zero-game-current-turn');
+		el_.body = $('body');
 
 		initializeGame(options);
 
@@ -68,6 +69,11 @@ define(function(require) {
 
 			self.currentPlayer = options.shape;
 			self.turnAllowed = self.currentPlayer === enums.CellStates.Cross;
+			if (!isLocal_ && !self.turnAllowed){
+				el_.body.toggleClass('turn-not-allowed', true);
+			} else {
+				el_.body.toggleClass('turn-allowed', true);
+			}
 		}
 
 		function switchPlayer() {
@@ -81,7 +87,10 @@ define(function(require) {
 					el_.crossTurnIcon.toggleClass('active', true);
 					el_.zeroTurnIcon.toggleClass('active', false);
 				}
+			} else {
+				el_.body.toggleClass('turn-not-allowed');
 			}
+			el_.body.toggleClass('turn-allowed', false);
 		}
 
 		function initializeSubscriptions(){

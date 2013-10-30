@@ -42,6 +42,9 @@ body, html
 		display block
 		padding-top 100% 
 
+not_allowed_cell = 0 0 15px #F44
+allowed_cell = 0 0 15px #44FF8F
+
 .game-cell
 	position relative
 	width @css{calc(33% - 8px)}
@@ -53,9 +56,16 @@ body, html
 		display block
 		padding-top 100%		
 	&:hover
-		box-shadow 0 0 15px #F44
+		box-shadow not_allowed_cell
 	&.cell-filled
 		box-shadow 0 0 15px #0F0E0E
+
+.turn-not-allowed
+	.game-cell:hover
+		box-shadow not_allowed_cell !important
+.turn-allowed
+	.game-cell:hover
+		box-shadow allowed_cell !important
 
 .game-field
 	width @css{calc(33% - 15px)}
@@ -67,7 +77,7 @@ body, html
 	&.current-field
 		box-shadow  0 0 15px #35E726		
 		& .game-cell:hover
-			box-shadow 0 0 15px #44FF8F
+			box-shadow  allowed_cell
 	&:before
 		content: ""
 		display: block
