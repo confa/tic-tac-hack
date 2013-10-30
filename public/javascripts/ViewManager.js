@@ -4,8 +4,10 @@ define(function (require){
 		mediator = require('libs/mediator');
 
 	var ViewManager = function () {
-		var MenuView = $('#main-menu-container'),
-			GameView = $('#main-game-container');
+		var el_ = {
+			menuView: $('#main-menu-container'),
+			gameView: $('#main-game-container')
+		};
 
 		// $('#start-game-button').on('click', showGameView);
 		$('#back-game-button').on('click', showMenuView);
@@ -13,13 +15,13 @@ define(function (require){
 		mediator.on('game-controller:new', showGameView);
 
 		function showGameView () {
-			MenuView.hide();
-			GameView.show();		
+			el_.menuView.hide();
+			el_.gameView.show();		
 		}
 
 		function showMenuView () {
-			MenuView.show();
-			GameView.hide();		
+			el_.menuView.show();
+			el_.gameView.hide();		
 		}
 	};
 

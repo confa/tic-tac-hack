@@ -12,9 +12,11 @@ define(function(require) {
 		el_.playerGameLabel = $('#player-game-label');
 		el_.rivalGameLabel = $('#rival-game-label');
 
+		el_.playerNames = $('.player-name');
+
 		var names = {};
 		names.player = 'player 1';
-		names.rival = 'player 2';
+		names.rival = '';
 		mediator.publish('player-controller:player', names.player);
 
 		function bindListeners_(){			
@@ -27,12 +29,12 @@ define(function(require) {
 				el_.rivalName.toggle();
 			});
 
-			$('.player-name').on('focus', function(){
+			el_.playerNames.on('focus', function(){
 				var container = $(this);
 				container.val('');
 			});
 
-			$('.player-name').on('blur', function(){
+			el_.playerNames.on('blur', function(){
 				var container = $(this);
 				if (container.val().length === 0){
 					container.val('player');
@@ -45,7 +47,7 @@ define(function(require) {
 					mediator.publish('player-controller:rival', names.rival);
 					el_.rivalGameLabel.text(names.rival);
 				}	
-						
+				self.renderNames({playerName: names.player, rivalName: names.rival});	
 			});
 		}
 
