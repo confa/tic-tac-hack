@@ -25,14 +25,16 @@ define(function(require){
 
 		mediator.subscribe('socket:game-started', onGameStarted_);
 
-		var shape = enums.CellStates.Zero;
-		var localGame_ = false;
+		var shape = enums.CellStates.Zero,
+			localGame_ = false,
+			game = {};
 
 		var playerController_ = new PlayerController();
 
 		function newGame_(){
 			var names = playerController_.getPlayerNames();
-			
+			mediator.publish('reset-markup');
+
 			if (!localGame_){
 				mediator.publish('game-controller:new', {player: names.player, timestamp: new Date()});
 				shape = enums.CellStates.Cross;
@@ -44,7 +46,8 @@ define(function(require){
 
 		function onGameStarted_(data){
 			var names = playerController_.getPlayerNames();
-
+			mediator.publish('reset-markup');
+			
 			var options = {
 				isLocal: localGame_,
 				player: names.player,
@@ -52,7 +55,7 @@ define(function(require){
 				shape: shape,
 				turn: data ? data.currentTurn : enums.CellStates.Cross
 			};
-			new Game(options);
+			game = new Game(options);
 		}
 
 		function onSwitch_(item){

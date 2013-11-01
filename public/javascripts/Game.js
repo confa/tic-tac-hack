@@ -95,6 +95,17 @@ define(function(require) {
 
 		function initializeSubscriptions(){
 			mediator.on('socket:turn-network', self.makeTurn);
+			mediator.on('reset-markup', resetMarkup_);
+		}
+
+		function resetMarkup_(){
+			el_.gameCells.removeClass('cell-filled');
+			el_.gameFields.removeClass('winner-zero-field winner-cross-field current-field');
+			el_.gameCells.find('.cross-cell,.zero-cell').remove();
+
+			var globalCells = $('.global-game-cell');
+			globalCells.removeClass('cell-filled');
+			globalCells.find('.cross-cell,.zero-cell').remove();
 		}
 
 		function onCellClick_(item) {
