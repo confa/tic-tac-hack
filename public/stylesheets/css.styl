@@ -121,6 +121,7 @@ allowed_cell = 0 0 15px #44FF8F
 	height 100%
 	float left
 	padding 10px 0px
+	// text-align: left
 
 #global-field-container
 	width 40%
@@ -196,6 +197,7 @@ allowed_cell = 0 0 15px #44FF8F
 	width 20%
 	height 100%
 	float left
+	overflow: hidden
 
 .game-list-player-name
 	margin-left 15px
@@ -205,29 +207,35 @@ allowed_cell = 0 0 15px #44FF8F
 	margin auto
 
 .player-game-info
-	width 100%
 	height 20px
+	display inline-block
 
 	& div
 		float left
-
-	& label
-		font-size 13pt
+	#player-game-label, #rival-game-label
+		height: 100%
+		overflow hidden
+		max-width @css{calc(100% - 45px)}
 
 	& #cross-game-current-turn
 		position relative
 		width 30px
 		height 15px
 		margin-right 15px
-		display none
+		visibility hidden
 		&.active
-			display block
+			visibility visible 
 
 	& #zero-game-current-turn
 		position relative
 		width 30px
 		height 30px
 		margin-right 15px
-		display none
+		visibility hidden
 		&.active
-			display block
+			visibility visible 
+
+
+#player-names-container
+	text-align left
+	display inline-block

@@ -15,7 +15,7 @@ define(function(require) {
 		el_.playerNames = $('.player-name');
 
 		var names = {};
-		names.player = 'player 1';
+		names.player = '';
 		names.rival = '';
 		mediator.publish('player-controller:player', names.player);
 
@@ -27,6 +27,10 @@ define(function(require) {
 
 			mediator.on('game-controller:mode', function(isLocalGame){
 				el_.rivalName.toggle();
+			});
+
+			mediator.on('game-controller:new', function(data){
+				self.renderNames({playerName: data.player || names.player, rivalName: data.rival || names.rival});	
 			});
 
 			el_.playerNames.on('focus', function(){
@@ -47,7 +51,6 @@ define(function(require) {
 					mediator.publish('player-controller:rival', names.rival);
 					el_.rivalGameLabel.text(names.rival);
 				}	
-				self.renderNames({playerName: names.player, rivalName: names.rival});	
 			});
 		}
 

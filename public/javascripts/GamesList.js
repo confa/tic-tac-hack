@@ -48,7 +48,7 @@ define(function(require){
 			var container = $(this);
 			var id = container.data('id');
 			if (typeof id !== 'undefined'){
-				mediator.publish('game-list:join', { id: id, name: self.playerName});
+				mediator.publish('game-list:join', { id: id, name: self.playerName || 'player 2'});
 			}
 		}
 

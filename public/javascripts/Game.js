@@ -78,18 +78,12 @@ define(function(require) {
 
 		function switchPlayer() {
 			if (isLocal_){
-				if(self.currentPlayer === enums.CellStates.Cross) {
-					self.currentPlayer = enums.CellStates.Zero;
-					el_.crossTurnIcon.toggleClass('active', false);
-					el_.zeroTurnIcon.toggleClass('active', true);
-				} else {
-					self.currentPlayer = enums.CellStates.Cross;
-					el_.crossTurnIcon.toggleClass('active', true);
-					el_.zeroTurnIcon.toggleClass('active', false);
-				}
+					self.currentPlayer = +!self.currentPlayer;
 			} else {
 				el_.body.toggleClass('turn-not-allowed');
 			}
+			el_.crossTurnIcon.toggleClass('active');
+			el_.zeroTurnIcon.toggleClass('active');
 			el_.body.toggleClass('turn-allowed', false);
 		}
 

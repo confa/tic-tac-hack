@@ -36,10 +36,10 @@ define(function(require){
 			mediator.publish('reset-markup');
 
 			if (!localGame_){
-				mediator.publish('game-controller:new', {player: names.player, timestamp: new Date()});
+				mediator.publish('game-controller:new', {player: names.player || 'player 1', timestamp: new Date()});
 				shape = enums.CellStates.Cross;
 			} else {
-				mediator.publish('game-controller:new', {player: names.player, rival: names.rival});
+				mediator.publish('game-controller:new', {player: names.player || 'player 1', rival: names.rival || 'player 2'});
 				onGameStarted_();
 			}
 		}
