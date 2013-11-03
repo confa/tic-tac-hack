@@ -34,7 +34,10 @@ module.exports = function (grunt) {
 			},
 			server_js: {
 				files: ['<%= server_js %>'],
-				tasks: ['jshint:server']
+				tasks: ['jshint:server'],
+				options:{
+					livereload: false
+				}
 			},
 			jade: {
 				files: ['public/index.jade', 'public/templates/*.jade'],

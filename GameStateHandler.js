@@ -41,8 +41,8 @@ function GameStateHandler(server){
 
 }
 
-GameStateHandler.prototype.onJoin = function(game, socket) {
-	var game = games.join(game);
+GameStateHandler.prototype.onJoin = function(data, socket) {
+	var game = games.join(data);
 
 	if (game){
 		var roomName = 'game-' + game.id;
@@ -56,14 +56,14 @@ GameStateHandler.prototype.onJoin = function(game, socket) {
 		game.shape = +!game.shape;
 		participants[participantsIds[1]].emit('game-started', game);
 	}
-}
+};
 
 GameStateHandler.prototype.onTurn = function(data, socket) {
 	var room = getRoomForSocket(socket);
 	if (typeof room !== 'undefined'){
 		io.sockets.in(room).emit('turn', data);
 	}
-}
+};
 
 GameStateHandler.prototype.onNewGame = function(data, socket) {
 	var game = games.add(data);
@@ -75,7 +75,7 @@ GameStateHandler.prototype.onDisconnect = function(socket) {
 	var room = getRoomForSocket(socket);
 	if (typeof room !== 'undefined'){
 		io.sockets.in(room).emit('partner-disconnected');
-		var id = parseInt(room.substring(5));
+		var id = parseInt(room.substring(5), 10);
 		if (!isNaN(id)){
 			var game = games.getById(id);
 			if (game){

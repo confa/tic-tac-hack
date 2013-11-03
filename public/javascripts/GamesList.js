@@ -70,7 +70,7 @@ define(function(require){
 			var index = _.findWhere(self.list, {id: game.id});
 			if (typeof index !== 'undefined'){
 				index = index.id;
-				$('.join-button[data-id="' +  index + '"]').parent().remove();
+				$('.join-button[data-id="' +  index + '"]').closest('.row').remove();
 				self.list.splice(index, 1);
 			}
 		}
