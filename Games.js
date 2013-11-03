@@ -58,3 +58,13 @@ Games.prototype.join = function(data) {
 		return false;
 	}
 };
+
+Games.prototype.remove = function(data) {
+	var game = this.getById(data.id);
+	this.list = _.without(this.list, game);
+};
+
+Games.prototype.finish = function(data) {
+	var game = this.getById(data.id);
+	game.finished = true;
+};

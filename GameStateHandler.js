@@ -29,6 +29,14 @@ function GameStateHandler(server){
 		socket.on('turn', function(data){
 			self.onTurn(data, socket);
 		});
+
+		socket.on('game-over', function(data){
+			self.onGameOverTurn(data, socket);
+		});
+
+		socket.on('disconnect', function () {
+			self.onDisconnect(socket);
+		});
 	});
 
 }
@@ -51,16 +59,9 @@ GameStateHandler.prototype.onJoin = function(game, socket) {
 }
 
 GameStateHandler.prototype.onTurn = function(data, socket) {
-	var rooms = io.sockets.manager.roomClients[socket.id];
-	var roomName;
-	for (var i in rooms){ 
-		if (i !== ''){
-			roomName = i.substring(1);
-			break;
-		}
-	}
-	if (typeof roomName !== 'undefined'){
-		io.sockets.in(roomName).emit('turn', data);
+	var room = getRoomForSocket(socket);
+	if (typeof room !== 'undefined'){
+		io.sockets.in(room).emit('turn', data);
 	}
 }
 
@@ -69,3 +70,34 @@ GameStateHandler.prototype.onNewGame = function(data, socket) {
 	socket.broadcast.emit('game-added', game);
 	socket.join('game-' + game.id);
 };
+
+GameStateHandler.prototype.onDisconnect = function(socket) {
+	var room = getRoomForSocket(socket);
+	if (typeof room !== 'undefined'){
+		io.sockets.in(room).emit('partner-disconnected');
+		var id = parseInt(room.substring(5));
+		if (!isNaN(id)){
+			var game = games.getById(id);
+			if (game){
+				if (game.started){
+					games.finish(game);
+				} else {
+					games.remove(game);
+					io.sockets.emit('game-removed', game);
+				}
+			}
+		}
+	}
+};
+
+function getRoomForSocket(socket){
+	var rooms = io.sockets.manager.roomClients[socket.id];
+	var roomName;
+	for (var i in rooms){ 
+		if (i !== ''){
+			roomName = i.substring(1);
+			break;
+		}
+	}
+	return roomName;
+}
