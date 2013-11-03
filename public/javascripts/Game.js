@@ -15,6 +15,7 @@ define(function(require) {
 		el_.gameCells = $('.game-cell');
 		el_.gameFields = $('.game-field');
 		el_.gameOverLayer = $('#game-over-container');
+		el_.rivalName = $('#rival-game-label');
 		el_.crossTurnIcon = $('#cross-game-current-turn');
 		el_.zeroTurnIcon = $('#zero-game-current-turn');
 		el_.body = $('body');
@@ -22,7 +23,6 @@ define(function(require) {
 		initializeGame(options);
 
 		el_.gameCells.on('click', onCellClick_);
-
 
 		this.makeTurn = function (options) {
 			var className = options.player === enums.CellStates.Cross ? 'cross-cell' : 'zero-cell';
@@ -93,6 +93,7 @@ define(function(require) {
 		}
 
 		function resetMarkup_(){
+			el_.rivalName.text('');
 			el_.gameCells.removeClass('cell-filled');
 			el_.gameFields.removeClass('winner-zero-field winner-cross-field current-field');
 			el_.gameCells.find('.cross-cell,.zero-cell').remove();
