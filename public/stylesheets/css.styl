@@ -5,6 +5,7 @@ body, html
 	height 100%
 	margin 0
 	padding 0
+	background #1F253D
 	font-family monospace
 	-webkit-touch-callout none
 	-webkit-user-select none
@@ -31,12 +32,17 @@ body, html
 	margin auto
 	float left
 
+#local-network-switcher
+	position relative
+	top 5px
+
 .global-game-cell
 	position relative
 	width @css{calc(33% - 8px)}
-	border solid 1px #000
-	display inline-block
-	margin 3px	
+	border solid 1px #222
+	float left
+	margin 3px
+	background rgba(120,129,163,0.85)
 	&:before
 		content ""
 		display block
@@ -48,9 +54,10 @@ allowed_cell = 0 0 15px #44FF8F
 .game-cell
 	position relative
 	width @css{calc(33% - 8px)}
-	border solid 1px #000
-	display inline-block
+	border solid 1px #222
+	float left
 	margin 3px
+	background rgba(120, 129, 163, 0.85)
 	&:before
 		content ""
 		display block
@@ -70,14 +77,13 @@ allowed_cell = 0 0 15px #44FF8F
 .game-field
 	width @css{calc(33% - 15px)}
 	position relative
-	display inline-block
+	float left
 	padding 1px
 	margin-top 15px
 	margin-right 10px
 	&.current-field
-		box-shadow  0 0 15px #35E726		
-		& .game-cell:hover
-			box-shadow  allowed_cell
+		& .game-cell
+			background rgba(165, 177, 224, 0.85)
 	&:before
 		content: ""
 		display: block
@@ -88,9 +94,8 @@ allowed_cell = 0 0 15px #44FF8F
 		& div.game-cell
 			box-shadow 0 0 15px #F44
 
-
 .zero-cell
-	border 4px solid #F44
+	border 4px solid #FF0029
 	position absolute
 	top @css{calc(4%)}
 	left @css{calc(3%)}
@@ -104,13 +109,13 @@ allowed_cell = 0 0 15px #44FF8F
 	position absolute
 	top calc(44%)
 	left 0px
-	background #0A00FF
+	background #0066FF
 	transform rotate(-45deg)
 	&:after
 		content ''
 		width @css{calc(100%)}
 		height @css{calc(100%)}
-		background #0A00FF
+		background #0066FF
 		position absolute
 		top 0px
 		left 0px
@@ -126,6 +131,7 @@ allowed_cell = 0 0 15px #44FF8F
 #global-field-container
 	width 40%
 	margin 0px auto 15px auto
+	overflow hidden
 
 	& > #global-game-field
 		width 100%
@@ -134,17 +140,21 @@ allowed_cell = 0 0 15px #44FF8F
 	height 20%
 
 .game-button
-	display inline-block
-	background #b35151
-	padding 0 24px
+	width 140px
 	cursor pointer
-	height 21px
-	line-height 21px
-	font-size 18px
+	height 31px
+	line-height 28px
+	font-size 12pt
 	color white
 	text-align center
-	border-radius 9px
-	margin 24px 0px
+	border-radius 6px
+	margin auto
+	&.red
+		background #E64C65
+	&.green
+		background #05CF9D
+	&.blue
+		background #35AADC
 
 #game-over-container
 	position absolute
@@ -161,29 +171,16 @@ allowed_cell = 0 0 15px #44FF8F
 #game-not-supported-container
 	display none
 
-#game-menu-container, #player-list-container
+#game-menu-container
 	float left
 	width 50%
 
-#player-name
-	display block
+#start-game-button, #join-button
+	position relative
+	top 5px
 
 #rival-name
 	display none
-
-.join-button
-	display inline-block
-	background #2ECC71
-	cursor pointer
-	height 21px
-	width 92px
-	line-height 21px
-	font-size 18px
-	color white
-	text-align center
-	border-radius 9px
-	&:hover
-		background #58D68D
 
 #games-list
 	list-style none
@@ -211,7 +208,6 @@ allowed_cell = 0 0 15px #44FF8F
 
 .player-game-info
 	height 20px
-	display inline-block
 
 	& div
 		float left
@@ -224,7 +220,7 @@ allowed_cell = 0 0 15px #44FF8F
 	& #cross-game-current-turn
 		position relative
 		width 30px
-		height 15px
+		height 36px
 		margin-right 15px
 		visibility hidden
 		&.active
@@ -243,3 +239,56 @@ allowed_cell = 0 0 15px #44FF8F
 #player-names-container
 	text-align left
 	display inline-block
+
+#games-list
+	> .row
+		cursor pointer
+		margin-bottom 1px
+		&:hover
+			background #50597B
+
+.container-dark
+	margin auto
+	width 500px
+	height auto
+	float left
+
+.row-dark
+	background #1F253D
+	border-radius 5px
+	width 200px
+	margin auto
+	float left
+
+.row
+	width 100%
+	height 40px
+	color white
+	line-height 40px
+	text-align center
+	background #394264
+
+.row-dark-header
+	background #11A8AB
+	color white
+	font-size 14pt
+	width 100%
+	height 40px
+	line-height 40px
+	text-align center
+	border-radius 5px 5px 0px 0px
+
+input
+	height 27px
+	background #50597B
+	color white
+	border 0px
+	border-radius 3px
+	padding-left 5px
+	&:focus
+		outline-color #11A8AB
+
+.divider
+	width 20px
+	height 1px
+	float left

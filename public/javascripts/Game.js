@@ -74,6 +74,8 @@ define(function(require) {
 			} else {
 				el_.body.toggleClass('turn-allowed', true);
 			}
+
+			mediator.on('reset-markup', resetMarkup_);
 		}
 
 		function switchPlayer() {
@@ -89,7 +91,6 @@ define(function(require) {
 
 		function initializeSubscriptions(){
 			mediator.on('socket:turn-network', self.makeTurn);
-			mediator.on('reset-markup', resetMarkup_);
 		}
 
 		function resetMarkup_(){
