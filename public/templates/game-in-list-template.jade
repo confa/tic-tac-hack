@@ -1,5 +1,6 @@
 script(id="game-in-list-template", type='text/template')
-	li.game-list-item
+	div.row
 		.game-list-player-name {{ player }}
 		.game-list-wait-time(data-time="{{ waitTime }}") 
-		.join-button(data-id="{{ id }}") join
+		div(style="float:left;")
+			#join-button.game-button.blue(data-id="{{ id }}") join

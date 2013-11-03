@@ -7,15 +7,23 @@ html
 		#game-not-supported-container YOUR BROWSER IS NOT SUPPORTED
 		#main-menu-container
 			#game-menu-container
-				#buttons-container
-					#local-network-switcher.switch.has-switch
-						input(type='checkbox', checked='', data-toggle='switch')
+				.container-dark
+					.row-dark-header GAME LIST
+					#games-list
 
-				#start-game-button.game-button Start Game
-				input#player-name.player-name(type="text", value="player")
-				input#rival-name.player-name(type="text", value="player")
-			#player-list-container
-				ul#games-list
+				.divider
+
+				.row-dark
+					.row-dark-header SETTINGS
+					.row
+						#local-network-switcher.switch.has-switch
+							input(type='checkbox', checked='', data-toggle='switch')
+					.row
+						input#player-name.player-name(type="text", value="player")
+					.row
+						input#rival-name.player-name(type="text", value="player")
+					.row
+						#start-game-button.game-button.blue Start Game
 
 		#main-game-container
 			#game-over-container GAME OVER
@@ -35,18 +43,18 @@ html
 						- }	
 
 				#player-names-container
-					.player-game-info
-						#cross-game-current-turn.active
-							.cross-cell
-						#player-game-label
-					div
-					.player-game-info
-						#zero-game-current-turn
-							.zero-cell
-						#rival-game-label
-
-				#back-button-container
-					#back-game-button.game-button Back
+					.row-dark
+						.row-dark-header PLAYERS
+						.player-game-info.row
+							#cross-game-current-turn.active
+								.cross-cell
+							#player-game-label
+						.player-game-info.row
+							#zero-game-current-turn
+								.zero-cell
+							#rival-game-label
+						.row
+							#back-game-button.game-button.blue Back
 
 		include templates/game-in-list-template
 		
