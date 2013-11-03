@@ -34,7 +34,7 @@ define(function(require) {
 			'opponent:disconnected': 'socket:disconnected'
 		})
 		.out({
-			'game-controller:new':'new-game',
+			'game-controller:new-network':'new-game',
 			'game-list:join':'join'
 		});
 
