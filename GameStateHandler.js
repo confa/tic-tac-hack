@@ -18,25 +18,13 @@ function GameStateHandler(server){
 
 		socket.emit('games-list', games.getPending());
 
-		socket.on('new-game', function (data) {
-			self.onNewGame(data, socket);
-		});
-
-		socket.on('join', function (data) {
-			self.onJoin(data, socket);
-		});
-
-		socket.on('turn', function(data){
-			self.onTurn(data, socket);
-		});
-
-		socket.on('game-over', function(data){
-			self.onGameOverTurn(data, socket);
-		});
-
-		socket.on('disconnect', function () {
-			self.onDisconnect(socket);
-		});
+		self.bindListeners({
+			'new-game' : 'onNewGame',
+			'join' : 'onJoin',
+			'turn' : 'onTurn',
+			'game-over' : 'onGameOver',
+			'disconnect' : 'onDisconnect'
+		}, socket);
 	});
 
 }
@@ -71,7 +59,7 @@ GameStateHandler.prototype.onNewGame = function(data, socket) {
 	socket.join('game-' + game.id);
 };
 
-GameStateHandler.prototype.onDisconnect = function(socket) {
+GameStateHandler.prototype.onDisconnect = function(data, socket) {
 	var room = getRoomForSocket(socket);
 	if (typeof room !== 'undefined'){
 		io.sockets.in(room).emit('partner-disconnected');
@@ -90,6 +78,17 @@ GameStateHandler.prototype.onDisconnect = function(socket) {
 	}
 };
 
+GameStateHandler.prototype.bindListeners = function(eventList, socket) {
+	var self = this;
+	for (var i in eventList) if (eventList.hasOwnProperty(i)){
+		(function(event){
+			socket.on(i, function(data){
+				self[eventList[event]](data, socket);
+			});
+		})(i);
+	}
+};
+
 function getRoomForSocket(socket){
 	var rooms = io.sockets.manager.roomClients[socket.id];
 	var roomName;
@@ -101,3 +100,4 @@ function getRoomForSocket(socket){
 	}
 	return roomName;
 }
+
