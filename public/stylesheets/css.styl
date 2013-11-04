@@ -7,11 +7,6 @@ body, html
 	padding 0
 	background #1F253D
 	font-family monospace
-	-webkit-touch-callout none
-	-webkit-user-select none
-	-khtml-user-select none
-	-moz-user-select moz-none
-	-ms-user-select none
 	user-select none
 
 #main-menu-container
@@ -28,7 +23,7 @@ body, html
 #game-container
 	width 30%
 	min-height 400px
-	min-width 400px
+	min-width 430px
 	margin auto
 	float left
 
@@ -36,24 +31,12 @@ body, html
 	position relative
 	top 5px
 
-.global-game-cell
-	position relative
-	width @css{calc(33% - 8px)}
-	border solid 1px #222
-	float left
-	margin 3px
-	background rgba(120,129,163,0.85)
-	&:before
-		content ""
-		display block
-		padding-top 100% 
-
 not_allowed_cell = 0 0 15px #F44
 allowed_cell = 0 0 15px #44FF8F
 
-.game-cell
+.game-cell, .global-game-cell
 	position relative
-	width @css{calc(33% - 8px)}
+	width 27%
 	border solid 1px #222
 	float left
 	margin 3px
@@ -61,11 +44,7 @@ allowed_cell = 0 0 15px #44FF8F
 	&:before
 		content ""
 		display block
-		padding-top 100%		
-	&:hover
-		box-shadow not_allowed_cell
-	&.cell-filled
-		box-shadow 0 0 15px #0F0E0E
+		padding-top 100%
 
 .turn-not-allowed
 	.game-cell:hover
@@ -75,12 +54,18 @@ allowed_cell = 0 0 15px #44FF8F
 		box-shadow allowed_cell !important
 
 .game-field
-	width @css{calc(33% - 15px)}
+	width 30%
+	min-width 130px
 	position relative
 	float left
 	padding 1px
 	margin-top 15px
 	margin-right 10px
+	& .game-cell
+		&:hover
+			box-shadow not_allowed_cell
+		&.cell-filled
+			box-shadow 0 0 15px #0F0E0E
 	&.current-field
 		& .game-cell
 			background rgba(165, 177, 224, 0.85)
@@ -175,9 +160,8 @@ allowed_cell = 0 0 15px #44FF8F
 
 #game-menu-container
 	float left
-	width 50%
 
-#start-game-button, #join-button
+#start-game-button, .join-button
 	position relative
 	top 5px
 

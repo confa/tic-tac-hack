@@ -80,13 +80,15 @@ GameStateHandler.prototype.onDisconnect = function(data, socket) {
 
 GameStateHandler.prototype.bindListeners = function(eventList, socket) {
 	var self = this;
-	for (var i in eventList) if (eventList.hasOwnProperty(i)){
-		(function(event){
-			socket.on(i, function(data){
-				self[eventList[event]](data, socket);
-			});
-		})(i);
-	}
+	var perform = function(event){
+				socket.on(i, function(data){
+					self[eventList[event]](data, socket);
+				});
+			};
+	for (var i in eventList) 
+		if (eventList.hasOwnProperty(i)){
+			perform(i);
+		}
 };
 
 function getRoomForSocket(socket){
