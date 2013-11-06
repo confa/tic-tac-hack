@@ -13,10 +13,6 @@ define(function (require) {
 			cancelButton : options.cancelButton
 		};
 
-		if(!(model.confirmButton || model.cancelButton)) {
-			throw "You can't create modal window without any buttons! At least here...";
-		}
-
 		var el_ = {};
 		el_.body = $('body');
 		el_.template = $('#modal-template');

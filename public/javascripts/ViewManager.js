@@ -11,13 +11,21 @@ define(function (require){
 			notSupportedView: $('#game-not-supported-container')
 		};
 
-		var css3Supported = true;
+		var css3Supported = true,
+			modal = {};
 
 		(function() {
 			if (typeof document.body.style.borderRadius === 'undefined') {
 				css3Supported = false;
-				showNotSupported();
-				alert('You are using the old browser version. Please install the newest one or delete your IE.');
+
+				modal = new Modal({header: 'Error!', text: 'You are using the old browser version. Please install the newest one or delete your IE.'});
+				modal.launch();
+
+				mediator.once('modal:confirm-clicked', function() {
+					showNotSupported();
+				});
+			} else {
+				showMenuView();
 			}
 		}());
 
@@ -27,16 +35,16 @@ define(function (require){
 		mediator.subscribe('socket:disconnected', opponentDisconnected);
 
 		function opponentDisconnected() {
-			var modal = new Modal({header: 'Warning!', text: 'Your opponent has disconnected :(', confirmButton: true, cancelButton: false});
+			modal = new Modal({header: 'Warning!', text: 'Your opponent has disconnected :(', confirmButton: true});
 			modal.launch();
 
-			mediator.subscribe('modal:confirm-clicked', function() {
+			mediator.once('modal:confirm-clicked', function() {
 				showMenuView();
 			});
 		}
 
 		function backButtonClicked() {
-			var modal = new Modal({header: 'Warning!', text: 'If you exit from game you\'ll lost all turns. Do you want to proceed?', confirmButton: true, cancelButton: true});
+			modal = new Modal({header: 'Warning!', text: 'If you exit from game you\'ll lost all turns. Do you want to proceed?', confirmButton: true});
 			modal.launch();
 
 			mediator.once('modal:confirm-clicked', function() {
