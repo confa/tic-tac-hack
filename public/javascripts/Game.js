@@ -7,9 +7,9 @@ define(function(require) {
 		mediator = require('libs/mediator'),
 		$ = require('jquery');
 
-	function Game (options) {
+	function Game () {
 		var self = this,
-			isLocal_ = options.isLocal,
+			isLocal_ ,
 			el_ = {};
 
 		el_.gameCells = $('.game-cell');
@@ -19,10 +19,6 @@ define(function(require) {
 		el_.crossTurnIcon = $('#cross-game-current-turn');
 		el_.zeroTurnIcon = $('#zero-game-current-turn');
 		el_.body = $('body');
-
-		initializeGame(options);
-
-		el_.gameCells.on('click', onCellClick_);
 
 		this.makeTurn = function (options) {
 			var className = options.player === enums.CellStates.Cross ? 'cross-cell' : 'zero-cell';
@@ -52,12 +48,9 @@ define(function(require) {
 				self.turnAllowed = !self.turnAllowed;
 			}
 		};
-		
-		if(!isLocal_) {
-			initializeSubscriptions();
-		}
-
-		function initializeGame(options){
+	
+		this.initializeGame = function(options){
+			isLocal_ = options.isLocal;
 			self.fieldGrid = [];
 			self.availableField = undefined;
 
@@ -75,22 +68,29 @@ define(function(require) {
 				el_.body.toggleClass('turn-allowed', true);
 			}
 
+			bindListeners();	
+		};
+
+		function bindListeners() {
+			el_.gameCells.off('click');
+			mediator.off('reset-markup');
+			el_.gameCells.on('click', onCellClick_);
 			mediator.on('reset-markup', resetMarkup_);
+
+			if(!isLocal_) {
+				mediator.on('socket:turn-network', self.makeTurn);
+			}
 		}
 
 		function switchPlayer() {
 			if (isLocal_){
-					self.currentPlayer = +!self.currentPlayer;
+				self.currentPlayer = +!self.currentPlayer;
 			} else {
 				el_.body.toggleClass('turn-not-allowed');
 			}
 			el_.crossTurnIcon.toggleClass('active');
 			el_.zeroTurnIcon.toggleClass('active');
 			el_.body.toggleClass('turn-allowed', false);
-		}
-
-		function initializeSubscriptions(){
-			mediator.on('socket:turn-network', self.makeTurn);
 		}
 
 		function resetMarkup_(){
@@ -152,8 +152,7 @@ define(function(require) {
 				return self.globalField.determineWinner();
 			}
 		}
-
 	}
 
-	return Game;
+	return new Game();
 });

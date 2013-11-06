@@ -26,8 +26,7 @@ define(function(require){
 		mediator.subscribe('socket:game-started', onGameStarted_);
 
 		var shape_ = enums.CellStates.Zero,
-			localGame_ = false,
-			game = {};
+			localGame_ = false;
 
 		var playerController_ = new PlayerController();
 
@@ -57,7 +56,8 @@ define(function(require){
 				shape: shape_,
 				turn: data ? data.currentTurn : enums.CellStates.Cross
 			};
-			game = new Game(options);
+
+			Game.initializeGame(options);			
 		}
 
 		function onSwitch_(item){
