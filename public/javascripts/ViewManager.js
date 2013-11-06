@@ -39,8 +39,9 @@ define(function (require){
 			var modal = new Modal({header: 'Warning!', text: 'If you exit from game you\'ll lost all turns. Do you want to proceed?', confirmButton: true, cancelButton: true});
 			modal.launch();
 
-			mediator.subscribe('modal:confirm-clicked', function() {
+			mediator.once('modal:confirm-clicked', function() {
 				showMenuView();
+				mediator.publish('view-manager:left-game', {});
 			});
 		}
 

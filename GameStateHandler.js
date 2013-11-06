@@ -23,7 +23,8 @@ function GameStateHandler(server){
 			'join' : 'onJoin',
 			'turn' : 'onTurn',
 			'game-over' : 'onGameOver',
-			'disconnect' : 'onDisconnect'
+			'disconnect' : 'onDisconnect',
+			'left-game' : 'onDisconnect'
 		}, socket);
 	});
 
@@ -62,7 +63,7 @@ GameStateHandler.prototype.onNewGame = function(data, socket) {
 GameStateHandler.prototype.onDisconnect = function(data, socket) {
 	var room = getRoomForSocket(socket);
 	if (typeof room !== 'undefined'){
-		io.sockets.in(room).emit('partner-disconnected');
+		socket.broadcast.to(room).emit('partner-disconnected');
 		var id = parseInt(room.substring(5), 10);
 		if (!isNaN(id)){
 			var game = games.getById(id);
@@ -72,7 +73,6 @@ GameStateHandler.prototype.onDisconnect = function(data, socket) {
 				} else {
 					games.remove(game);
 					io.sockets.emit('game-removed', game);
-					io.sockets.emit('opponent:disconnected');
 				}
 			}
 		}

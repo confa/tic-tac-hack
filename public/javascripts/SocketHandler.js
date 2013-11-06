@@ -31,11 +31,12 @@ define(function(require) {
 			'game-removed': 'socket:game-removed',
 			'game-started': 'socket:game-started',
 			'denied': 'socket:denied',
-			'opponent:disconnected': 'socket:disconnected'
+			'partner-disconnected': 'socket:disconnected'
 		})
 		.out({
 			'game-controller:new-network':'new-game',
-			'game-list:join':'join'
+			'game-list:join':'join',
+			'view-manager:left-game' : 'left-game'
 		});
 
 	return socketHandler;
