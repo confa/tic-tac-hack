@@ -44,7 +44,7 @@ define(function (require){
 		}
 
 		function backButtonClicked() {
-			modal = new Modal({header: 'Warning!', text: 'If you exit from game you\'ll lost all turns. Do you want to proceed?', confirmButton: true});
+			modal = new Modal({header: 'Warning!', text: 'If you exit from game you\'ll lost all turns. Do you want to proceed?', confirmButton: true, cancelButton: true});
 			modal.launch();
 
 			mediator.once('modal:confirm-clicked', function() {
