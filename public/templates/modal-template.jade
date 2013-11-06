@@ -1,0 +1,12 @@
+script#modal-template(type="text/template")
+	#modal-window
+		#modal-fade
+		#modal-container
+			#modal-dark
+				#modal-header {{ header }}
+				#modal-text {{ text }}
+				#modal-button-container
+					{% if(cancelButton) }}
+					#modal-button-cancel.game-button.red CANCEL
+					{% if(confirmButton) }}
+					#modal-button-confirm.game-button.blue OK

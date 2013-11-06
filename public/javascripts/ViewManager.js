@@ -1,6 +1,7 @@
 define(function (require){
 	'use strict';
 	var $ = require('jquery'),
+		Modal = require('ModalWindow'),
 		mediator = require('libs/mediator');
 
 	var ViewManager = function () {
@@ -20,9 +21,28 @@ define(function (require){
 			}
 		}());
 
-		$('#back-game-button').on('click', showMenuView);
-		mediator.on('socket:game-started', showGameView);
-		mediator.on('game-controller:new', showGameView);
+		$('#back-game-button').on('click', backButtonClicked);
+		mediator.subscribe('socket:game-started', showGameView);
+		mediator.subscribe('game-controller:new', showGameView);
+		mediator.subscribe('socket:disconnected', opponentDisconnected);
+
+		function opponentDisconnected() {
+			var modal = new Modal({header: 'Warning!', text: 'Your opponent has disconnected :(', confirmButton: true, cancelButton: false});
+			modal.launch();
+
+			mediator.subscribe('modal:confirm-clicked', function() {
+				showMenuView();
+			});
+		}
+
+		function backButtonClicked() {
+			var modal = new Modal({header: 'Warning!', text: 'If you exit from game you\'ll lost all turns. Do you want to proceed?', confirmButton: true, cancelButton: true});
+			modal.launch();
+
+			mediator.subscribe('modal:confirm-clicked', function() {
+				showMenuView();
+			});
+		}
 
 		function showGameView() {
 			if(css3Supported) {
@@ -35,7 +55,7 @@ define(function (require){
 			if(css3Supported) {
 				el_.menuView.show();
 				el_.gameView.hide();
-			}		
+			}
 		}
 
 		function showNotSupported() {

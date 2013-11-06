@@ -72,6 +72,7 @@ GameStateHandler.prototype.onDisconnect = function(data, socket) {
 				} else {
 					games.remove(game);
 					io.sockets.emit('game-removed', game);
+					io.sockets.emit('opponent:disconnected');
 				}
 			}
 		}

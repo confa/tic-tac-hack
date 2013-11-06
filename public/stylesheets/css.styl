@@ -138,10 +138,14 @@ allowed_cell = 0 0 15px #44FF8F
 	margin auto
 	&.red
 		background #E64C65
+		&:hover
+			background #E05F74
 	&.green
 		background #05CF9D
 	&.blue
 		background #35AADC
+		&:hover
+			background #53B1DA
 
 #game-over-container
 	position absolute
@@ -232,6 +236,56 @@ allowed_cell = 0 0 15px #44FF8F
 		margin-bottom 1px
 		&:hover
 			background #50597B
+
+#modal-window
+	position absolute
+	top 0px
+	width 100%
+	height 100%
+	display table
+
+#modal-container
+	display table-cell
+	vertical-align middle
+
+#modal-dark
+	width 400px
+	height 200px
+	background #394264
+	position relative
+	margin auto
+	border-radius 5px
+
+#modal-fade
+	position absolute
+	width 100%
+	height 100%
+	top 0px
+	left 0px
+	background rgba(0, 0, 0, 0.5)
+
+#modal-header
+	background #11A8AB
+	height 50px
+	border-radius 5px 5px 0px 0px
+	text-align center
+	line-height 40px
+	font-size 22px
+	color #FFF
+
+#modal-text
+	height 35%
+	text-align justify
+	padding 10px
+	font-size 16px
+	color white
+
+#modal-button-container
+	height 30%
+	text-align center
+	> div
+		display inline-block
+		margin-right 20px
 
 .container-dark
 	margin auto
