@@ -4,11 +4,12 @@ var _ = require('underscore');
 
 function Games(){
 	this.list = [];
+	this.currentId = 0;
 }
 
 Games.prototype.add = function(data) {
 	var game = {
-		id: this.list.length,
+		id: ++this.currentId,
 		full: false,
 		started: false,
 		finished: false
@@ -37,6 +38,14 @@ Games.prototype.getById = function(id) {
 		result = false;
 	}
 	return result; 
+};
+
+Games.prototype.getRandomGameId = function() {
+	var pendingId = this.getPending().map(function(item) {return item.id;});
+	if(pendingId.length > 0) {
+		return Math.min.apply(Math.min,pendingId);
+	}
+	return -1;
 };
 
 Games.prototype.getPending = function() {

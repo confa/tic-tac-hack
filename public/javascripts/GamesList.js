@@ -39,6 +39,7 @@ define(function(require){
 		}, 1000);
 
 		$(document).on('click', '.join-button', onJoin_);
+		$(document).on('click', '.random-button', onRandom_);
 		mediator.on('socket:games-list', onGamesList_);
 		mediator.on('socket:game-added', onGameAdd_);
 		mediator.on('socket:game-removed', onGameRemoved_);
@@ -50,6 +51,10 @@ define(function(require){
 			if (typeof id !== 'undefined'){
 				mediator.publish('game-list:join', { id: id, name: self.playerName || 'player 2'});
 			}
+		}
+
+		function onRandom_() {
+			mediator.publish('game-list:random', { name: self.playerName || 'player 2'});
 		}
 
 		function onGamesList_(list){

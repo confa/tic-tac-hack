@@ -36,6 +36,7 @@ define(function(require) {
 		.out({
 			'game-controller:new-network':'new-game',
 			'game-list:join':'join',
+			'game-list:random':'random',
 			'view-manager:left-game' : 'left-game'
 		});
 

@@ -21,6 +21,7 @@ function GameStateHandler(server){
 		self.bindListeners({
 			'new-game' : 'onNewGame',
 			'join' : 'onJoin',
+			'random' : 'onJoin',
 			'turn' : 'onTurn',
 			'game-over' : 'onGameOver',
 			'disconnect' : 'onDisconnect',
@@ -31,6 +32,10 @@ function GameStateHandler(server){
 }
 
 GameStateHandler.prototype.onJoin = function(data, socket) {
+	if(typeof data.id === 'undefined') {
+		data.id = games.getRandomGameId(); // find random opponent
+	}
+
 	var game = games.join(data);
 
 	if (game){
@@ -38,12 +43,12 @@ GameStateHandler.prototype.onJoin = function(data, socket) {
 		io.sockets.emit('game-removed', game);
 		socket.join(roomName);
 
-		var participants = io.sockets.in(roomName).sockets;
+		var participants = io.sockets.clients(roomName);
 		var participantsIds = _.keys(participants); 
 		game.shape = Math.floor(Math.random() * 2);
-		participants[participantsIds[0]].emit('game-started', game);
+		participants[0].emit('game-started', game);
 		game.shape = +!game.shape;
-		participants[participantsIds[1]].emit('game-started', game);
+		participants[1].emit('game-started', game);
 	}
 };
 
